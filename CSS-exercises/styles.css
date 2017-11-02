@@ -1,3 +1,16 @@
+.center {
+  text-align:center;
+}
+.blue p {
+  color:blue;
+}
+#id1 {
+  color:blue; font-family:Verdana;
+}
+
+#id2 {
+  color:green; font-family:Comic Sans MS;
+
 p {
-  color:red;
+  color:red; font-size:20px;
 }
