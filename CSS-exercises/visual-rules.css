@@ -72,7 +72,7 @@ p {
 .image {
   background-image: url("https://s3.amazonaws.com/codecademy-content/courses/freelance-1/unit-2/soccer.jpeg");
   background-position: center;
-  height: 1000px;
+  height: 300px;
 }
 
 .writer-img {
