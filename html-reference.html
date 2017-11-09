@@ -11,7 +11,8 @@
     <hr>
     <a href="https://sdschultzie.github.io/index.html">Homepage</a>
     <hr>
-    <table width=100%>
+    
+    <table>
       <tr>
         <th>Name</th>
         <th>Start Tag</th>
@@ -103,120 +104,287 @@
         <td>&lt;div&gt; elements inside block &lt;/div&gt; and &lt;span&gt; elements inside block &lt;/span&gt;</td>
       </tr>
     </table>
-    <h2>HTML</h2>
-    <p>In order to specify a webpage to be in html you must first put &lt;!DOCTYPE html&gt; at the top of the code with a &lt;html&gt; tag below that, and at the end of all your code you must have &lt;/html&gt; as an ending element</p>
-    <p>If you created a website with only these three tags with to writing in between it would be a blank page</p>
-    <p><a href="https://www.w3schools.com/html/html_basic.asp">w3schools HTML</a></p>
-    <h2>Header</h2>
-    <p>Some reason why to put a header into an html code is to give the page a title, add meta data, reference a style sheet, and more. But text that will show up in the header tag won't actually show up on the website.</p>
-    <p>The code for a header tag is &lt;head&gt; and you must also have a &lt;/head&gt; at the end.</p>
-    <p><a href="https://www.w3schools.com/html/html_headings.asp">w3schools Header</a></p>
-    <h2>Title</h2>
-    <p>the title element does exactly what is sounds like. It defines a title for that webpage. However this title doesn't show up on the webpage itself but rather in the browser toolbar.</p>
-    <p>The code for the title tag is &lt;title&gt; and &lt;/title&gt;. The title tag actually shows up inside of the header tags like this:</p>
-    <pre>
-    &lt;head&gt;
-      &lt;title&gt;This is the title of the document&lt;/title&gt;
-    &lt;head&gt;
-    </pre>
-    <p><a href="https://www.w3schools.com/html/html_attributes.asp">w3schools Title</a></p>
-    <h2>Body</h2>
-    <p>The body element is where all of the text and pictures and links will show up on your webpage. Inside the body tag is where all of the content of your website will be.</p>
-    <p>The code for the body tags are &lt;body&gt; and &lt;/body&gt; for the end tag. If you create a page with just the main html elements (&lt;!DOCTYPE html&gt;, html, header,) and you have an empty body element with nothing in between the tags, the website will still be blank</p>
-    <p><a href="https://www.w3schools.com/html/html_elements.asp">w3schools Body</a></p>
-    <h2>Headings</h2>
-    <p>The heading elements will actually show up on the web page. Headings are located inside the body element of your html code. Headings will be large and bold text, and there are 6 types of heading tags</p>
-    <p>The code for the heading tags are: &lt;h1&gt; and &lt;/h1&gt; through &lt;h6&gt; and &lt;/h6&gt;. The h1 element is considered 'more important' than the h6 element and will show up as larger and more bolded text than the h6 element. However both of these elements are 'more important' than the paragraph element. This is an example of the six heading elements:</p>
-    <h1>This is a Heading</h1>
-    <h2>This is a Heading</h2>
-    <h3>This is a Heading</h3>
-    <h4>This is a Heading</h4>
-    <h5>This is a Heading</h5>
-    <h6>This is a Heading</h6>
-    <p><a href="https://www.w3schools.com/html/html_headings.asp">w3schools Headings</a></p>
-    <h2>Paragraphs</h2>
-    <p>the paragrpah element is located in the body tags and this text will also show up on the website, hust like most elements inside the body tags. A prargraph shows up as normal text and isn't bolded or enlarged. There is also a bit of white space in between paragraphs and other text.</p>
-    <p>The code for the paragraph tags are &lt;p&gt; and &lt;/p&gt;. It is important to note that the formatting of the text you type in between the paragraph tags won't be taken into account on the website. So if you type in a return inside a paragraph element, it won't show up on the website. This is an example af a paragraph in a website:</p>
-    <h3>This is a Heading</h3>
-    <p>This is a paragraph</p>
-    <p>This is another paragraph</p>
-    <p><a href="https://www.w3schools.com/html/html_paragraphs.asp">w3schools Paragraphs</a></p>
-    <h2>Break</h2>
-    <p>The break element is used like a return key on a normal document. It indicates a line break in between text.</p>
-    <p>The code for a break element is just a single &lt;br&gt; with no end tag. This is an example of a break element:</p>
-    <h3>This is a Heading</h3>
-    <p>This is an example of a single pragraph<br>with a break in it.</p>
-    <p><a href="https://www.w3schools.com/html/html_paragraphs.asp">w3schools Break</a></p>
-    <h2>Lines</h2>
-    <p>The line element is a version of a break element, and it works the same way however instead of an empty space in between lines it inserts a horizontal line for more empasis of separation.</p>
-    <p>The code for this element is also jus a single &lt;hr&gt; tag with no end tag. this is an example of a line break in a website</p>
-    <h3>This a a Heading</h3>
-    <hr>
-    <p>This is a paragraph</p>
-    <p><a href="https://www.w3schools.com/html/html_headings.asp">w3schools Line Break</a></p>
-    <h2>Comments</h2>
-    <p>Comments are used as a way to take out parts of your code, so it doesn't display on the website, or to add comments to yourself so you can figure out what is going on if you come back to your code after a while.</p>
-    <p>The code for a comment element is &lt;!-- for a starting tag, and --&gt; for the end tag with whatever you want to say in the comment in between</p>
-    <p><a href="https://www.w3schools.com/html/html_comments.asp">w3schools Comments</a></p>
-    <h2>Links</h2>
-    <p>Adding links is very important in html becasue you can create subpages and link the homepage to each of your subpages in your website.</p>
-    <p>The code for a link element is &lt;a href ="URL of website"&gt; and an end tag of &lt;/a&gt;. You can type in text or even add apicture in between these tags so that when you click on the text it takes you to the specified website. A link defaults to showing up as blue underlined text on a website and a visited link shows up as purple undelined text, however you can change this using CSS styles.</p>
-    <a href="w3schools.com">Click to visit w3schools.com</a>
-    <p><a href="https://www.w3schools.com/html/html_links.asp">w3schools Links</a></p>
-    <h2>Images</h2>
-    <p>Images are very important to make your website look good.</p>
-    <p>the code for inserting an image into a website is : &lt;img src="URL of image" alt="text if image is unavailable" width="widthpx" height:"heightpx"&gt; This is how an image looks in a webpage:</p>
-    <img src="https://www.w3schools.com/w3css/img_lights.jpg" width="200" height="200">
-    <p><a href="https://www.w3schools.com/html/html_images.asp">w3schools Links</a></p>
-    <h2>Lists</h2>
-    <p>There are multiple types of lists that you can create on a webpage. The two types of lists include unordered lists and ordered lists.</p>
-    <p>The code to make an unordered list is &lt;ul&gt; and &lt;/ul&gt; and an ordered list is &lt;ol&gt; and &lt;/ol&gt;. The lists elements are defined by the &lt;li&gt; and &lt;/li&gt; tags. The list elements go inside the unordered or ordered list tags. This is an example of the two lists:</p>
-    <ul>
-      <li>Baseball</li>
-      <li>Soccer</li>
-      <li>Football</li>
-    </ul>
-    <ol>
-      <li>Add sugar</li>
-      <li>Mix the batter</li>
-      <li>Put it in the oven</li>
-    </ol>
-    <p><a href="https://www.w3schools.com/html/html_lists.asp">w3schools Lists</a></p>
-    <h2>Tables</h2>
-    <p>You can also create tables using html.</p>
-    <p>To define a table element, use the &lt;table&gt; and &lt;/table&gt; tags. Inside each table is a set of rows. A row is defined by the &lt;tr&gt; and &lt;/tr&gt; tags. Inside each row you can have two types of data. A table header, which defaults to bold and centered, and normal table data. A table header element is defined using the &lt;th&gt; and &lt;/th&gt; tags while table data uses the &lt;td&gt; and &lt;/td&gt; tags. You can also add styles to the table using CSS. Below is an example of a table.</p>
-    <table>
-    <tr>
-      <th>Firstname</th>
-      <th>Lastname</th> 
-      <th>Age</th>
-    </tr>
-    <tr>
-      <td>Jill</td>
-      <td>Smith</td>
-      <td>50</td>
-    </tr>
-    <tr>
-      <td>Eve</td>
-      <td>Jackson</td>
-      <td>94</td>
-    </tr>
-    <tr>
-      <td>John</td>
-      <td>Doe</td>
-      <td>80</td>
-    </tr>
-    </table>
-    <p><a href="https://www.w3schools.com/html/html_tables.asp">w3schools Tables</a></p>
-    <h2>Blocks</h2>
-    <p>A block-level element always starts on a new line and takes up the full width available (stretches out to the left and right as far as it can). However, an inline element does not start on a new line and only takes up as much width as necessary.</p>
-    <p>The &lt;div&gt; and &lt;/div&gt; tags define a block element while the &lt;span&gt; and &lt;/span&gt; tags define an inline element. The main reason to creat inline and block elements is so you can assing different style to them using CSS. Below is an example of the two types of block elements</p>
-    <div>This is an example</div>
-    <div>of a block-level element</div>
-    <br>
-    <span>This is an example</span>
-    <span>of an inline element</span>
-    <p><a href="https://www.w3schools.com/html/html_blocks.asp">w3schools Blocks</a></p>
     
-</body>
+    <h2>HTML</h2>
+      <p class="description">In order to specify a webpage to be in html you must first put &lt;!DOCTYPE html&gt; at the top of the code with a &lt;html&gt; tag below that, and at the end of all your code you must have &lt;/html&gt; as an ending element. If you created a website with only these three tags with to writing in between it would be a blank page. Here is some example code:</p>
+      <pre class="syntax">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+      <p><a href="https://www.w3schools.com/html/html_basic.asp">w3schools HTML</a></p>
+      
+    <h2>Header</h2>
+      <p class="description">Some reasons why to put a header into an html code is to give the page a title, add meta data, reference a style sheet, and more. But text that will show up in the header tag won't actually show up on the website. The code for a header tag is &lt;head&gt; and you must also have a &lt;/head&gt; at the end. Here is some example code.</p>
+      <pre class="syntax">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;title&gt;My First HTML&lt;/title&gt;
+  &lt;meta charset="UTF-8"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+      <p><a href="https://www.w3schools.com/html/html_headings.asp">w3schools Header</a></p>
+      
+    <h2>Title</h2>
+      <p class="description">The title element does exactly what is sounds like. It defines a title for that webpage. However this title doesn't show up on the webpage itself but rather in the browser toolbar. The code for the title tag is &lt;title&gt; and &lt;/title&gt;. Here is some example code:</p>
+      <pre class="syntax">
+&lt;head&gt;
+  &lt;title&gt;This is the title of the document&lt;/title&gt;
+&lt;head&gt;</pre>
+      <p><a href="https://www.w3schools.com/html/html_attributes.asp">w3schools Title</a></p>
+      
+    <h2>Body</h2>
+      <p class="description">The body element is where all of the text and pictures and links will show up on your webpage. Inside the body tag is where all of the content of your website will be. The code for the body tags are &lt;body&gt; and &lt;/body&gt; for the end tag. If you create a page with just the main html elements (&lt;!DOCTYPE html&gt;, html, header,) and you have an empty body element with nothing in between the tags, the website will still be blank. Here is some example code.</p>
+      <pre class="syntax">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+      <p><a href="https://www.w3schools.com/html/html_elements.asp">w3schools Body</a></p>
+      
+    <h2>Headings</h2>
+      <p class="description">The heading elements will actually show up on the web page. Headings are located inside the body element of your html code. Headings will be large and bold text, and there are 6 types of heading tags. The code for the heading tags are: &lt;h1&gt; and &lt;/h1&gt; through &lt;h6&gt; and &lt;/h6&gt;. The h1 element is considered 'more important' than the h6 element and will show up as larger and more bolded text than the h6 element. However both of these elements are 'more important' than the paragraph element. Here is some example code:</p>
+      <pre class="syntax">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+  &lt;h1&gt;This is a Heading&lt;/h1&gt;
+  &lt;h2&gt;This is a Heading&lt;/h2&gt;
+  &lt;h3&gt;This is a Heading&lt;/h3&gt;
+  &lt;h4&gt;This is a Heading&lt;/h4&gt;
+  &lt;h5&gt;This is a Heading&lt;/h5&gt;
+  &lt;h6&gt;This is a Heading&lt;/h6&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+      <p class="description">This example code would create a webpage that looks like this:</p>
+      <div class="display">
+        <h1 class="normalh1">This is a Heading</h1>
+        <h2 class="normalh2">This is a Heading</h2>
+        <h3>This is a Heading</h3>
+        <h4>This is a Heading</h4>
+        <h5>This is a Heading</h5>
+        <h6>This is a Heading</h6>
+      </div>
+      <p><a href="https://www.w3schools.com/html/html_headings.asp">w3schools Headings</a></p>
+      
+    <h2>Paragraphs</h2>
+      <p class="description">the paragrpah element is located in the body tags and this text will also show up on the website, hust like most elements inside the body tags. A prargraph shows up as normal text and isn't bolded or enlarged. There is also a bit of white space in between paragraphs and other text. The code for the paragraph tags are &lt;p&gt; and &lt;/p&gt;. It is important to note that the formatting of the text you type in between the paragraph tags won't be taken into account on the website. So if you type in a return inside a paragraph element, it won't show up on the website. Here is some exapmle code:</p>
+      <pre class="syntax">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+  &lt;h1&gt;This is a Heading&lt;/h1&gt;
+  &lt;p&gt;This is a paragraph&lt;/p&gt;
+  &lt;p&gt;This is another paragraph&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+      <p class="description">This exapmle code would display this on a webpage:</p>
+      <div class="display">
+        <h3>This is a Heading</h3>
+        <p>This is a paragraph</p>
+        <p>This is another paragraph</p>
+      </div>
+      <p><a href="https://www.w3schools.com/html/html_paragraphs.asp">w3schools Paragraphs</a></p>
+      
+    <h2>Break</h2>
+      <p class="description">The break element is used like a return key on a normal document. It indicates a line break in between text. The code for a break element is just a single &lt;br&gt; with no end tag. Here is an example:</p>
+      <pre class="syntax">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+  &lt;h1&gt;This is a Heading&lt;/h1&gt;
+  &lt;p&gt;This is an example of a single paragraph&lt;br&gt;with a break in it&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+      <p class="description">This code would result in the following display:</p>
+      <div class="display">
+        <h3>This is a Heading</h3>
+        <p>This is an example of a single pragraph<br>with a break in it.</p>
+      </div>
+      <p><a href="https://www.w3schools.com/html/html_paragraphs.asp">w3schools Break</a></p>
+      
+    <h2>Lines</h2>
+      <p class="description">The line element is a version of a break element, and it works the same way however instead of an empty space in between lines it inserts a horizontal line for more empasis of separation. The code for this element is also jus a single &lt;hr&gt; tag with no end tag. Here is some example code</p>
+      <pre class="syntax">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+  &lt;h1&gt;This is a Heading&lt;/h1&gt;
+  &lt;hr&gt;
+  &lt;p&gt;This is a paragraph&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+      <p class="description">This example code would display this webpage:</p>
+      <div class="display">
+        <h3>This a a Heading</h3>
+        <hr>
+        <p>This is a paragraph</p>
+      </div>
+      <p><a href="https://www.w3schools.com/html/html_headings.asp">w3schools Line Break</a></p>
+      
+    <h2>Comments</h2>
+      <p class="description">Comments are used as a way to take out parts of your code, so it doesn't display on the website, or to add comments to yourself so you can figure out what is going on if you come back to your code after a while. The code for a comment element is &lt;!-- for a starting tag, and --&gt; for the end tag with whatever you want to say in the comment in between</p>
+      <pre class="syntax">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+  &lt;!--this code wont show up on the website--&gt;
+  &lt;h1&gt;This is a Heading&lt;/h1&gt;
+  &lt;p&gt;This is a paragraph&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+      <p><a href="https://www.w3schools.com/html/html_comments.asp">w3schools Comments</a></p>
+      
+    <h2>Links</h2>
+      <p class="description">Adding links is very important in html becasue you can create subpages and link the homepage to each of your subpages in your website. The code for a link element is &lt;a href ="URL of website"&gt; and an end tag of &lt;/a&gt;. You can type in text or even add apicture in between these tags so that when you click on the text it takes you to the specified website. A link defaults to showing up as blue underlined text on a website and a visited link shows up as purple undelined text, however you can change this using CSS styles. Here is some example code:</p>
+      <pre class="syntax">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+  &lt;a href="https://www.w3schools.com/"&gt;Click to visit w3schools.com&lt;/a&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+      <p class="description">This code would relust in this website:</p>
+      <div class="display">
+        <a href="w3schools.com">Click to visit w3schools.com</a>
+      </div>
+      <p><a href="https://www.w3schools.com/html/html_links.asp">w3schools Links</a></p>
+      
+    <h2>Images</h2>
+      <p class="description">Images are very important to make your website look good. The code for inserting an image into a website is &lt;img src="URL of image" alt="text if image is unavailable" width="widthpx" height:"heightpx"&gt; This is some example code:</p>
+      <pre class="syntax">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+  &lt;img src="https://www.w3schools.com/w3css/img_lights.jpg" width="200 height="200"&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+      <p class="description">This code would display the following webpage:</p>
+      <div class="display">
+        <img src="https://www.w3schools.com/w3css/img_lights.jpg" width="200" height="200">
+      </div>
+      <p><a href="https://www.w3schools.com/html/html_images.asp">w3schools Links</a></p>
+      
+    <h2>Lists</h2>
+      <p class="description">There are multiple types of lists that you can create on a webpage. The two types of lists include unordered lists and ordered lists. The code to make an unordered list is &lt;ul&gt; and &lt;/ul&gt; and an ordered list is &lt;ol&gt; and &lt;/ol&gt;. The lists elements are defined by the &lt;li&gt; and &lt;/li&gt; tags. The list elements go inside the unordered or ordered list tags. Here is some example code:</p>
+      <pre class="syntax">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+  &lt;ul&gt;
+    &lt;li&gt;Baseball&lt;/li&gt;
+    &lt;li&gt;Soccer&lt;/li&gt;
+    &lt;li&gt;Football&lt;/li&gt;
+  &lt;/ul&gt;
+  &lt;ol&gt;
+    &lt;li&gt;Add sugar&lt;/li&gt;
+    &lt;li&gt;Mix the batter&lt;/li&gt;
+    &lt;li&gt;Put it in the oven&lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+      <p class="description">This code would produce the following webpage</p>
+      <div class="display">
+        <ul>
+          <li>Baseball</li>
+          <li>Soccer</li>
+          <li>Football</li>
+        </ul>
+        <ol>
+          <li>Add sugar</li>
+          <li>Mix the batter</li>
+          <li>Put it in the oven</li>
+        </ol>
+      </div>
+      <p><a href="https://www.w3schools.com/html/html_lists.asp">w3schools Lists</a></p>
+      
+    <h2>Tables</h2>
+      <p class="description">You can also create tables using html.To define a table element, use the &lt;table&gt; and &lt;/table&gt; tags. Inside each table is a set of rows. A row is defined by the &lt;tr&gt; and &lt;/tr&gt; tags. Inside each row you can have two types of data. A table header, which defaults to bold and centered, and normal table data. A table header element is defined using the &lt;th&gt; and &lt;/th&gt; tags while table data uses the &lt;td&gt; and &lt;/td&gt; tags. You can also add styles to the table using CSS. Below is some example code:</p>
+      <pre class="syntax">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+  &lt;table&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Firstname&lt;/th&gt;
+      &lt;th&gt;Lastname&lt;/th&gt;
+      &lt;th&gt;Age&lt;/th&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Jill&lt;/td&gt;
+      &lt;td&gt;Smith&lt;/td&gt;
+      &lt;td&gt;50&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Eve&lt;/td&gt;
+      &lt;td&gt;Jackson&lt;/td&gt;
+      &lt;td&gt;94&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Johon&lt;/td&gt;
+      &lt;td&gt;Doe&lt;/td&gt;
+      &lt;td&gt;80&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/table&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+      <p class='description'>This code would display the following website.</p>
+      <div class="display">
+      <table>
+        <tr>
+          <th>Firstname</th>
+          <th>Lastname</th> 
+          <th>Age</th>
+        </tr>
+        <tr>
+          <td>Jill</td>
+          <td>Smith</td>
+          <td>50</td>
+        </tr>
+        <tr>
+          <td>Eve</td>
+          <td>Jackson</td>
+          <td>94</td>
+        </tr>
+        <tr>
+          <td>John</td>
+          <td>Doe</td>
+          <td>80</td>
+        </tr>
+      </table>
+      </div>
+      <p><a href="https://www.w3schools.com/html/html_tables.asp">w3schools Tables</a></p>
+      
+    <h2>Blocks</h2>
+      <p class="description">A block-level element always starts on a new line and takes up the full width available (stretches out to the left and right as far as it can). However, an inline element does not start on a new line and only takes up as much width as necessary.The &lt;div&gt; and &lt;/div&gt; tags define a block element while the &lt;span&gt; and &lt;/span&gt; tags define an inline element. The main reason to creat inline and block elements is so you can assing different style to them using CSS. Below is some example code:</p>
+      <pre class="syntax">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+  &lt;div&gt;This is an example&lt;/div&gt;
+  &lt;div&gt;of a block level element&lt;/div&gt;
+  &lt;br&gt;
+  &lt;span&gt;This is an example&lt;/span&gt;
+  &lt;span&gt;of an inline element&lt;/span&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+      <p class="description">This code would produce this webpage:</p>
+      <div class="display">
+        <div>This is an example</div>
+        <div>of a block-level element</div>
+        <br>
+        <span>This is an example</span>
+        <span>of an inline element</span>
+      </div>
+      <p><a href="https://www.w3schools.com/html/html_blocks.asp">w3schools Blocks</a></p>
+    
+  </body>
 </html>
