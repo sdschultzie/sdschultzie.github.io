@@ -1,0 +1,71 @@
+th {
+  background-color: midnightblue;
+  color: white;
+  border: 2px solid lightgray;
+  border-collapse: collapse;
+}
+
+table tr td {
+  border: 2px solid lightgray;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+h1 {
+  font-family: Georgia;
+  color: midnightblue;
+  background-color: lightgrey;
+  padding: 20px;
+}
+h2 {
+  font-family: Georgia;
+  font-size: 30px;
+  text-align: center;
+  background-color: midnightblue;
+  color:white;
+  padding:4px;
+}
+
+.description {
+  font-family: Verdana;
+}
+
+.normalh2 {
+  background-color: lightgray;
+  font-family: "Times New Roman";
+  font-size: 25px;
+  color:black;
+  text-align:left;
+  padding: 0px;
+}
+
+.normalh1 {
+  background-color: lightgray;
+  font-family: "Times New Roman";
+  font-size: 30px;
+  color:black;
+  text-align:left;
+  padding: 0px;
+}
+.display {
+  background-color: lightgray;
+  box-shadow: 8px 8px 4px;
+  padding:10px;
+}
+
+.syntax {
+  font-family:"Courier New";
+  font-size: 15px;
+  border: 2px solid midnightblue;
+  padding: 3px;
+}
+
+a {
+  color:midnightblue;
+}
+
+a:visited {
+  color: midnightblue;
+}
