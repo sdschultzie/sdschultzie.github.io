@@ -1,26 +1,155 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+<head>
+<title>CSS Website Layout</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="layoutc3.css">
+<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
 <body>
 
-<div style="text-align:center">
-<h1>How the Pieces Move</h1>
-    <p style="border:2px solid red;">
-  	<a href="https://sdschultzie.github.io/index.html" style="color:black;">Home</a>
-  	<a href="https://sdschultzie.github.io/howthepiecesmove.html" style="color:black;">How the Pieces Move</a>
-  	<a href="https://sdschultzie.github.io/checkmateandrules.html" style="color:black;">Checkmate and Other Rules</a>
- 	<a href="https://sdschultzie.github.io/basicopenings.html" style="color:black;">Basic Openngs</a>
-    </p>
-    <p>It is very importnat to learn how the pieces move in Chess not only so you can play, but also becasue each piece in chess has weaknesses and strengths based on their movement patterns.
-    </p>
-<h2 style="background-color:dimgray;color:white">Pawn</h2>
+<div class="header">
+  <h1>How the Pieces Move</h1>
 </div>
-    <img src="http://www.intuitor.com/chess/images/Pawn_Move.jpg" style="float:left;width:300px;height;300px">
-    <p>Pawns are only able to move forward on a chess board. However they have a couple of special rules. On a pawns first move, when it hasn't been moved before, it has the option of moving forward 2 squares instead of the normal 1. Also pawns are the only piece in the game that capture other pieces differently from how they move. As shown in the picture pawns capture other pieces that are diagonally in front of them. They CANT capture a piece directly one square in front of them, and they CANT capture backwards, just as how they cant move backwards as well. There are two other special rules about pawns that you can learn in the <a href="https://sdschultzie.github.io/checkmateandrules.html"style="color:black">Checkmate and Other Rules</a> section.</p>
-<br>
-<br>
-<br>
-<h2 style="text-align:center;background-color:dimgray;color:white">Rook</h2>
-	<img src="http://www.chesscorner.com/tutorial/basic/rook/rookb.gif" style="float:left;width:300px;height;300px">
-    <p>
+
+<div class="topnav">
+  <a href="index.html">Home</a>
+  <div class="active">
+    <a href="page1.html">How the Pieces Move</a>
+  </div>
+  <a href="page2.html">Rules</a>
+  <a href="page3.html">Basic Strategies and Openings</a>
+  <a href="page4.html">History</a>
+</div>
+
+<!--creates single column content with styled bg-->
+<div class="row content">
+  <div class="column middle">
+    <h2>Pawn</h2>
+    <div class="floatleft">
+      <img class="sizeimg" src="https://goo.gl/RsWYs4">
+    </div>
+    <p>The pawn moves forward one square a time. However is has some special rules. One of its special rules is that you have the option to move forward 2 squares on a pawns first move, meaning it hasn't been move before. Another special aspect of the pawn is that it captures pieces differently than it moves. To capture a piece in Chess, you must move your piece to a square that is occupied by an opponents piece. If you can do this, then you take the opponents piece off the board. So in the example on the left, if there were black pieces in the squares with blue lines pointing toward them, the white pawn would be able to capture those black pieces.</p>
+  </div>
+</div>
+<!--resets sytling underneath image-->
+<div class="row content">
+  <div class="column middle">
+<!--resets sytling underneath image-->
+    <hr>
+    <h2>Rook</h2>
+    <div class="floatleft">
+      <img class="sizeimg" src="https://goo.gl/vqeMc6">
+    </div>
+    <p>The Rook has a very simple movement pattern, it can move any amount of squares either horizontally (across a row) or vertically (across a column). It alson cant jump over any pieces, and it captures pieces the same way it moves. Also, notice the numbers and letters on the edge of the board. The numbers specify rows and the letters, columns. So we say the Rook is on the e4 square. We use this notation to keep track of moves during a chess game.</p>
+  </div>
+</div>    
+<!--resets sytling underneath image-->
+<div class="row content">
+  <div class="column middle">
+<!--resets sytling underneath image-->
+    <hr>
+    <h2>Knight</h2>
+    <div class="floatleft">
+      <img class="sizeimg" src="https://goo.gl/HJqeJ3">
+    </div>
+    <p>The Knight has a very special movement pattern. It moves in the shape of an "L" either going up, down a column 2 squares, the left or right 1 square, or left or right 2 squares, then up or down one square. The red squares on the left are all the available squares that the Knight is able to move to. It also captures pieces the same way it moves like every other piece, except the pawn. However the Knight also has a special rule. It is the only piece that is able to "jump" over pieces. So in the picture, there could be pieces on the green squares and the Knight would still be able to move to any red square.</p>
+  </div>
+</div>
+<!--resets sytling underneath image-->
+<div class="row content">
+  <div class="column middle">
+<!--resets sytling underneath image-->
+    <hr>
+    <h2>Bishop</h2>
+    <div class="floatleft">
+      <img class="sizeimg" src="https://goo.gl/fubPLV">
+    </div>
+    <p>The Bishop moves diagonally any number os spaces across the Chess board. It is unable to jump over pieces like the knight, and it is the only piece in the game that stays on the same color square throughout the duration of the game. other than that there are no special rules for the Bishop.</p>
+  </div>
+</div>
+<!--resets sytling underneath image-->
+<div class="row content">
+  <div class="column middle">
+<!--resets sytling underneath image-->
+    <hr>
+    <h2>Queen</h2>
+    <div class="floatleft">
+      <img class="sizeimg" src="https://goo.gl/6BzC2L">
+    </div>
+    <p>The Queen is the most powerful piece in the game of Chess becasue its movement pattern is a combination of that of a Rook and a Bishop. It can move any number of squares across a row, column, or diagonal. However it can't jump over pieces. This free range of movement makes the Queen a very important, and useful piece in the game of Chess.</p>
+  </div>
+</div>
+<!--resets sytling underneath image-->
+<div class="row content">
+  <div class="column middle">
+<!--resets sytling underneath image-->
+    <hr>
+    <h2>King</h2>
+    <div class="floatleft">
+      <img class="sizeimg" src="https://goo.gl/2j5d2P">
+    </div>
+    <p>The King has the most limited movement in the game of Chess however it is the most important piece by far, because in order to win a game of chess you must protect your King, and attack the opponents King. You will learn more about Checkmate in the <a href="page2.html">Rules</a> section</p>
+  </div>
+</div>
+<!--resets sytling underneath image-->
+<div class="row content">
+  <div class="column middle">
+<!--resets sytling underneath image-->
+    <hr>
+    <h2>Piece Vaules</h2>
+    <p>This is a table of all the pieces and their values. The higher a piece's value, the more important it is in the game. Piece Value is used to determine who has the advantage in a game of chess, as the player that has captured the greatest value of his/her opponents pieces will have the upper hand. Piece Value also helps you determine wether or not you should capture a piece based on the other pieces protecting it, and the value of your piece threatening to attack it.</p>
+    <table width="100%">
+      <tr>
+        <th>Piece Name</th>
+        <th>Value</th>
+        <th>Number of Pieces</th>
+      </tr>
+      <tr>
+        <td>Pawn</td>
+        <td>1</td>
+        <td>8</td>
+      </tr>
+      <tr>
+        <td>Rook</td>
+        <td>5</td>
+        <td>2</td>
+      </tr>
+      <tr>
+        <td>Knight</td>
+        <td>3</td>
+        <td>2</td>
+      </tr>
+      <tr>
+        <td>Bishop</td>
+        <td>3</td>
+        <td>2</td>
+      </tr>
+      <tr>
+        <td>Queen</td>
+        <td>9</td>
+        <td>1</td>
+      </tr>
+      <tr>
+        <td>King</td>
+        <td>Infintly Valued</td>
+        <td>1</td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+
+<div class="footer">
+  <h4>Links to other pages</h4>
+  <ul class="left">
+    <li><a href="chess.com">Sign up on Chess.com to further your skills.</a></li>
+    <li><a href="/exercises/index.html">Exercises Homepage</a></li>
+    <li><a href="/CSS-exercises/index.html">CSS Exercises Homepage</a></li>
+    <li><a href="https://sdschultzie.github.io/html-reference.html">HTML Reference Page</a></li>
+  </ul>
+</div>
+  
 </body>
 </html>
