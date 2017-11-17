@@ -1,0 +1,118 @@
+/*creates background of webpage*/
+.content {
+  background-color:whitesmoke;
+}
+
+/*style for h2 headings inside content*/
+.content h2 {
+  font-family: Georgia;
+  font-size:35px;
+}
+
+/*style for paragraph elements inside content*/
+.content p {
+  font-family:"Trebuchet MS";
+  color:black;
+  font-size:25px;
+}
+
+.left {
+  text-align: left;
+}
+
+.center {
+  text-align: center;
+}
+
+/*styles a box to be filled with an image (homepage)*/
+.box1 {
+  border: 2px solid black;
+  margin:12px;
+}
+
+/*styles the image inside box(homepage)*/
+.box1 img {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+/*sets size of box(homepage)*/
+.sizebox1 {
+  width: 350px;
+  height: 200px;
+}
+
+/*styles a box used in subpages filled with examples*/
+.box2 {
+  border: 2px solid midnightblue;
+  background-color: white;
+  margin-left:2px;
+  padding-left: 30px;
+  padding-bottom: 25px;
+  padding-right: 10px
+}
+
+/*styles images inside subpage boxes*/
+.box2 img {
+  width: 200px;
+  height: 200px;
+  padding-top:30px;
+}
+
+/*sets size of subpage boxes*/
+.sizebox2 {
+  width: 95%;
+  height:100%;
+}
+
+/*floats box as a block element*/
+.floatbox {
+  display: inline-block;
+}
+
+.floatleft {
+  float: left;
+}
+
+.floatleft img {
+  margin-right: 20px;
+  margin-bottom: 10px;
+  display: block;
+}
+
+.floatright {
+  float: right;
+}
+
+.floatright img {
+  margin-left: 20px;
+  margin-bottom: 10px;
+  display: block;
+}
+
+table {
+  border-collapse: collapse;
+  font-family: Trebuchet MS;
+}
+
+table tr td {
+  border: 2px solid black;
+  padding: 10px;
+  font-size: 20px;
+}
+
+th {
+  background-color: midnightblue;
+  color: white;
+  border: 2px solid gray;
+  border-collapse: collapse;
+  padding: 10px;
+  font-size: 30px;
+}
+
+/*sizes imgages to 200 by 200 px*/
+.sizeimg {
+  width: 200px;
+  height: 200px;
+}
