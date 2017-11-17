@@ -1,12 +1,74 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>Page Title</title>
+<title>CSS Website Layout</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="layoutc3.css">
+<link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 <body>
 
-<h1>Checkmate and other rules</h1>
-<p>This is a paragraph.</p>
+<div class="header">
+  <h1>Checkmate and Other Rules</h1>
+</div>
 
+<div class="topnav">
+  <a href="index.html">Home</a>
+  <a href="howthepiecesmove.html">How the Pieces Move</a>
+  <div class="active">
+    <a href="checkamteandrules.html">Rules</a>
+  </div>
+  <a href="basicopenings.html">Basic Strategies and Openings</a>
+  <a href="history.html">History</a>
+</div>
+
+<div class="row content">
+  <div class="column middle">
+    <h2>Board Setup</h2>
+    <div class="floatleft">
+      <img class="sizeimg" src="https://goo.gl/MMHTt9">
+    </div>
+    <p>In order to play a game of Chess you must know how to set up a chess board. The white pawns go on the 2nd rank (row), with the rooks, knights, bishops, queen, and king, on the 1st rank. The rooks go on the outside and it is important to note that the right-side White rook in on the white square. Then the knights go on the inside of the rooks, with the bishops then on the inside of the knights. Then to remember where the queen and king go just remember the phrase "the queen goes on her color". As you can see in the picture, the white queen is on the white square and the black queen is on the dark square</p>
+  </div>
+</div>
+<div class="row content">
+  <div class="column middle">
+    <hr>
+    <h2>Checkmate</h2>
+    <p>Checkmate is the ultimate goal of any Chess player as this is how you win the game. In order to Checkmate an opponent you must first put their king in check. Putting someone in check means that one of your pieces is threatening to capture the King on its next move. Checkmating someone means that one of your pieces is threatening to capture the King on its next move, and no matter what the opponent does, his King will be captured the next move. However you dont actually capture the King, you just win. Below is an example of Checkmate:</p>
+    <div class="box2 sizebox2 floatbox">
+      <div class="floatleft">
+        <img class="sizeimg" src="https://goo.gl/aWVqdQ">
+      </div>
+      <p>In this case the Black king is Checkmated because the Queen is threatening capture, and no matter what he does, the next turn will result in the king being captured. Also note that the King can't capture the White queen becasue if he were to do so the Bishop would be putting him in Check, and it is illegal to move the King to a square that would put him in Check. So we say the queen is "protected" by the Bishop.</p>
+    </div>
+  </div>
+</div>
+<div class="row content">
+  <div class="column middle">
+    <hr>
+    <h2>Castling</h2>
+    <p>You may be wondering, "How the heck did the king get over there on the other side of that rook. Well, we say that it Castled Kingside. Castling is very important in Chess because it allow the king to be protected behind a wall of Pawns. Often you will want to Castle as soon as possible if you can, because if you don't your King will be exposed in the middle of the board. In order to castle you must Fist not have moved your King or the Rook that you want to castle with. Also there must be no pieces in between the King and the Rook. Lastly there must be opposing piece that is attacking a square in between the King and the Rook, and you must not be in Check.</p>
+    <div class="box2 sizebox2 floatbox">
+      <div class="floatleft">
+        <img src="https://goo.gl/i6agsG" style="width:400px">
+      </div>
+      <p>In this picture white was able to castle becasue he wasn't in check, hadn't moved his rook or kings, and no piece was attacking the squares between his king and rook prior to castling. When you castle you move the king over two square and then bring the Rook to the square directly on the inside of the King. This means you can actually castle in the other direction with the other rook. This is called casteling Queenside. Mostly people castle Kingside becasue the King is more protected by the pawns, however castleing queenside can be a good idea if your kingside pawns are broken up.</p>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  <h4>Links to other pages</h4>
+  <ul class="left">
+    <li><a href="chess.com">Sign up on Chess.com to further your skills.</a></li>
+    <li><a href="/exercises/index.html">Exercises Homepage</a></li>
+    <li><a href="/CSS-exercises/index.html">CSS Exercises Homepage</a></li>
+    <li><a href="https://sdschultzie.github.io/html-reference.html">HTML Reference Page</a></li>
+    <li><a href="https://www.chesskid.com/article/view/checkmate-in-one-practice-rook-power">Checkmate Practice</a></li>
+  </ul>
+</div>
+  
 </body>
 </html>
