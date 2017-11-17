@@ -1,0 +1,66 @@
+body {
+  margin: 0;
+}
+
+/* Style the header */
+.header {
+    background-color: whitesmoke;
+    padding: 12px;
+    text-align: center;
+    font-family: Georgia;
+    font-size:28px;
+}
+
+/* Style the top navigation bar */
+.topnav {
+    overflow: hidden;
+    background-color: midnightblue;
+}
+
+/* Style the topnav links */
+.topnav a {
+    float: left;
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 12px 15px;
+    text-decoration: none;
+    font-weight:bold;
+    font-family: Arial;
+    border: 2px solid midnightblue;
+}
+
+/* indicate active page on nav */
+.active a {
+    background-color: whitesmoke;
+    color: black;
+}
+
+/* Create one column that floats on left of browser*/
+.column {
+    float: left;
+    padding: 10px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+/* Style the footer */
+.footer {
+    background-color: midnightblue;
+    color: whitesmoke;
+    padding: 10px;
+    text-align: center;
+    font-family: Georgia
+}
+
+/*styles links in footer*/
+.footer a {
+  text-decoration: underline;
+  font-family: Georgia;
+  color: whitesmoke;
+}
