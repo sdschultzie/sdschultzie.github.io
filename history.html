@@ -1,12 +1,58 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>Page Title</title>
+<title>CSS Website Layout</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="layoutc3.css">
+<link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 <body>
 
-<h1>The History of The game</h1>
-<p>This is a paragraph.</p>
+<div class="header">
+  <h1>Checkmate and Other Rules</h1>
+</div>
 
+<div class="topnav">
+  <a href="index.html">Home</a>
+  <a href="page1.html">How the Pieces Move</a>
+  <a href="page2.html">Rules</a>
+  <a href="page3.html">Basic Strategies and Openings</a>
+  <div class="active">
+    <a href="page4.html">History</a>
+  </div>
+</div>
+
+<div class="row content">
+  <div class="column middle">
+    <h2>Origin</h2>
+    <div class="floatright">
+      <img src="https://goo.gl/9roMuK">
+    </div>
+    <p>Chess originated in India in the 6th century AD, and soon spread to Persia. When the Arabs conquered Persia, chess was taken up by the Muslim world and then spread to Southern Europe through the Muslims capturing of Spain.</p>
+  </div>
+</div>
+<div class="row content">
+  <div class="column middle">
+    <h2>History of Checkmate</h2>
+    <div class="floatleft">
+      <img src="https://goo.gl/KCmhw3" width="150" height="100">
+      <img src="https://goo.gl/68XrzP" width="150" height="200">
+    </div>
+    <p>At around the year 600 Chesss became know as chatrang in Persia, which then evolved to shatranj due to pronunciation problems.Then people started exclaiming Shāh (translates to "King") when the other oppents King was under attack (Known as Check now), and Shāh Māt (translates to "the King is helpless") when the Kings was under attack and could not escape (known as Checkmate today). </p>
+  </div>
+</div>
+
+<div class="footer">
+  <h4>Links to other pages</h4>
+  <ul class="left">
+    <li><a href="chess.com">Sign up on Chess.com to further your skills.</a></li>
+    <li><a href="/exercises/index.html">Exercises Homepage</a></li>
+    <li><a href="/CSS-exercises/index.html">CSS Exercises Homepage</a></li>
+    <li><a href="https://sdschultzie.github.io/html-reference.html">HTML Reference Page</a></li>
+    <li><a href="https://en.wikipedia.org/wiki/History_of_chess">Wikipedia History of Chess</a></li>
+  </ul>
+</div>
+  
 </body>
 </html>
