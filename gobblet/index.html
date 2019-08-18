@@ -1,17 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html>
 <head>
-<title>Gobblet</title>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="icon" href="/images/githubfavicon.png">
+  <meta charset="utf-8">
+  <title>Hello World</title>
 </head>
-  <script src = 'pixi.min.js'></script>
+  <script src="pixi.min.js"></script>
 <body>
-  <h1>Play Gobblet</h1>
-  <script>
-   let app = new PIXI.application({width: 800, height: 600});
-   document.body.appendChild(app.view);
+  <script type="text/javascript">
+    let type = "WebGL"
+    if(!PIXI.utils.isWebGLSupported()){
+      type = "canvas"
+    }
 
+    PIXI.utils.sayHello(type)
+  </script>
 </body>
 </html>
