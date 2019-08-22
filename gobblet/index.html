@@ -68,13 +68,27 @@
 
   <script>
     // --------------------- variables ------------------------------
-    var boardTableText = ''
+    //var boardTableText = ''
+    var imageArr = []
+    imageArr[0] = 'images/white';
+    imageArr[1] = 'images/blue1.png';
+    imageArr[2] = 'images/blue2.png';
+    imageArr[3] = 'images/blue3.png';
+    imageArr[4] = 'images/blue4.png';
+    imageArr[-1] = 'images/red1.png';
+    imageArr[-2] = 'images/red2.png';
+    imageArr[-3] = 'images/red3.png';
+    imageArr[-4] = 'images/red4.png';
+
     var p = document.getElementById('text');
     var m = document.getElementById('moves');
     var done = false;
     var gameOver = false;
-    var red = 0xFF0000;
+    
     var blue = 0x0000FF;
+    var red = 0xFF0000;
+    //var bluePiece = 
+
     var fixedMoves = [
       [-1, 2, 0, 0],
       [-1, 2, 3, 3],
@@ -107,13 +121,6 @@
     var currentPlayer = 0;
     var waitMode = 0;
     var piece = 0;
-
-    for (i=0; i < fixedMoves.length; i++){
-      m.innerHTML += '[' + (fixedMoves[i]) + ']<br>';
-    }
-    m.innerHTML += '<br>';
-    
-    var tableObj = createBoardTable();
 
     document.getElementById('boardCell').appendChild(createBoardTable());
     document.getElementById('p1StackCell').appendChild(createStackTable(0));
@@ -163,9 +170,12 @@
         for (j = 0; j < 4; j++){
           var td = tr.insertCell();
           td.style.border = '1px solid black';
-          td.style.width = '30px';
-          td.style.height = '30px';
+          td.style.width = '100px';
+          td.style.height = '100px';
           td.style.textAlign = 'center';
+          td.style.backgroundImage = "URL(" + imageArr[0] + ")";
+          td.style.backgroundRepeat = 'no-repeat';
+          td.style.backgroundPosition = 'center center';
           td.id = 'board'+ i + j;
           moveStr = '(' + i + ',' + j + ')';
           td.setAttribute('onclick', 'makeMove' + moveStr);
@@ -181,9 +191,11 @@
         var tr = tbl.insertRow();
         var td = tr.insertCell();
         //td.style.border = '1px solid black';
-        td.style.width = '30px';
-        td.style.height = '30px';
+        td.style.width = '100px';
+        td.style.height = '100px';
         td.style.textAlign = 'center';
+        td.style.backgroundPosition = 'center center';
+        td.style.backgroundRepeat = 'no-repeat';
         if (playerId == 0){
           td.id = 'p1'+ i;
           moveStr = '(-1,' + i + ')';
@@ -283,32 +295,46 @@
     }
 
     function updateTable(boardIn, stack1In, stack2In){
+      //board
       for(i = 0; i < boardIn.length; i++){
         for(j = 0; j < boardIn[i].length; j++){
+          var square = document.getElementById('board' + i + j);
           if (boardIn[i][j].length == 0){
-            document.getElementById('board' + i + j).innerHTML = 0
+            square.style.backgroundImage = "URL(" + imageArr[0] + ")";
+            square.innerHTML = 0;
           }
           else {
-          document.getElementById('board' + i + j).innerHTML = boardIn[i][j][board[i][j].length -1]
+            var visiblePiece = boardIn[i][j][board[i][j].length -1]
+            square.style.backgroundImage = "URL(" + imageArr[visiblePiece] + ")";
+            square.innerHTML = visiblePiece;
+
           }
         }
       }
-
+      //stack1
       for (i = 0; i < stack1In.length; i++){
+        var square = document.getElementById('p1' + i);
         if (stack1In[i].length == 0){
-            document.getElementById('p1' + i).innerHTML = 0
+            square.style.backgroundImage = "URL(" + imageArr[0] + ")";
+            square.innerHTML = 0;
         }
         else {
-          document.getElementById('p1' + i).innerHTML = stack1In[i][stack1In[i].length -1]
+          var visiblePiece = stack1In[i][stack1In[i].length -1];
+          square.innerHTML = visiblePiece;
+          square.style.backgroundImage = "URL(" + imageArr[visiblePiece] + ")";
         }
       }
-      
+      //stack2
       for (i = 0; i < stack2In.length; i++){
+        square = document.getElementById('p2' + i)
         if (stack2In[i].length == 0){
-            document.getElementById('p2' + i).innerHTML = 0
+            square.innerHTML = 0
+            square.style.backgroundImage = "URL(" + imageArr[0] + ")";
         }
         else {
-          document.getElementById('p2' + i).innerHTML = stack2In[i][stack2In[i].length -1]
+          var visiblePiece = stack2In[i][stack2In[i].length -1];
+          square.innerHTML = visiblePiece;
+          square.style.backgroundImage = "URL(" + imageArr[visiblePiece] + ")";
         }
       }
       
