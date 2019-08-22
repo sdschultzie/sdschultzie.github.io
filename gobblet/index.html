@@ -4,20 +4,440 @@
   <meta charset="utf-8">
   <title>Gobblet</title>
 </head>
-  <script src="pixi.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/4.5.1/pixi.min.js"></script>
 <body>
-  <script type="text/javascript">
-    let type = "WebGL"
-    if(!PIXI.utils.isWebGLSupported()){
-      type = "canvas"
+  <p id = 'moves'></p>
+  <p id = 'text'></p>
+
+<!--
+<table id = 'p1Stack'>
+        <tr><td id = 'p10' onclick = 'makeMove(-1,0)'>S1</td></tr>
+        <tr><td id = 'p11' onclick = 'makeMove(-1,1)'>S2</td></tr>
+        <tr><td id = 'p12' onclick = 'makeMove(-1,2)'>S3</td></tr>
+      </table>*\-->
+<table>
+  <tr>
+    <td id = 'p1StackCell' >
+      <!--<table id = 'p1Stack'>
+        <tr><td id = 'p10' onclick = 'makeMove(-1,0)'>S1</td></tr>
+        <tr><td id = 'p11' onclick = 'makeMove(-1,1)'>S2</td></tr>
+        <tr><td id = 'p12' onclick = 'makeMove(-1,2)'>S3</td></tr>
+      </table>-->
+    </td>
+    <td bgcolor='grey'></td>
+    <td id='boardCell'>
+      <!--<table>
+        <tr>
+          <td id = 'board00' onclick = 'makeMove(0,0)'>0</td>
+          <td id = 'board01' onclick = 'makeMove(0,1)'>0</td>
+          <td id = 'board02' onclick = 'makeMove(0,2)'>0</td>
+          <td id = 'board03' onclick = 'makeMove(0,3)'>0</td>
+        </tr>
+        <tr>
+          <td id = 'board10' onclick = 'makeMove(1,0)'>0</td>
+          <td id = 'board11' onclick = 'makeMove(1,1)'>0</td>
+          <td id = 'board12' onclick = 'makeMove(1,2)'>0</td>
+          <td id = 'board13' onclick = 'makeMove(1,3)'>0</td>
+        </tr>
+        <tr>
+          <td id = 'board20' onclick = 'makeMove(2,0)'>0</td>
+          <td id = 'board21' onclick = 'makeMove(2,1)'>0</td>
+          <td id = 'board22' onclick = 'makeMove(2,2)'>0</td>
+          <td id = 'board23' onclick = 'makeMove(2,3)'>0</td>
+        </tr>
+        <tr>
+          <td id = 'board30' onclick = 'makeMove(3,0)'>0</td>
+          <td id = 'board31' onclick = 'makeMove(3,1)'>0</td>
+          <td id = 'board32' onclick = 'makeMove(3,2)'>0</td>
+          <td id = 'board33' onclick = 'makeMove(3,3)'>0</td>
+        </tr>
+      </table>-->
+    </td>
+    <td  bgcolor='grey'></td>
+    <td id = 'p2StackCell'>
+      <!--<table>
+        <tr><td id = 'p20' onclick = 'makeMove(-2,0)'>S1</td></tr>
+        <tr><td id = 'p21' onclick = 'makeMove(-2,1)'>S2</td></tr>
+        <tr><td id = 'p22' onclick = 'makeMove(-2,2)'>S3</td></tr>
+      </table>-->
+    </td>
+  </tr>
+</table>
+
+
+
+  <script>
+    // --------------------- variables ------------------------------
+    var boardTableText = ''
+    var p = document.getElementById('text');
+    var m = document.getElementById('moves');
+    var done = false;
+    var gameOver = false;
+    var red = 0xFF0000;
+    var blue = 0x0000FF;
+    var fixedMoves = [
+      [-1, 2, 0, 0],
+      [-1, 2, 3, 3],
+      [-1, 2, 3, 3],
+      [-1, 2, 2, 3],
+      [-1, 2, 3, 3],
+      [2, 3, 2, 2],
+      [-1, 2, 0, 1],
+      [2, 2, 0, 2],
+      [-1, 2, 1, 0],
+      [1, 0, 2, 0]
+    ]
+
+    var player1 = {
+      value: 1,
+      color: blue,
+      stack: createStack(1),
+      name: ''
+    }
+    var player2 = {
+      value: -1,
+      color: red,
+      stack: createStack(-1),
+      name: ''
     }
 
-    PIXI.utils.sayHello(type)
-    //Create a Pixi Application
-    let app = new PIXI.Application({width: 256, height: 256});
+    players = [player1, player2];
+    var board = createBoard();
+    var moveNum = 0;
+    var currentPlayer = 0;
+    var waitMode = 0;
+    var piece = 0;
 
-    //Add the canvas that Pixi automatically created for you to the HTML document
+    for (i=0; i < fixedMoves.length; i++){
+      m.innerHTML += '[' + (fixedMoves[i]) + ']<br>';
+    }
+    m.innerHTML += '<br>';
+    
+    var tableObj = createBoardTable();
+
+    document.getElementById('boardCell').appendChild(createBoardTable());
+    document.getElementById('p1StackCell').appendChild(createStackTable(0));
+    document.getElementById('p2StackCell').appendChild(createStackTable(1));
+    updateTable(board, players[0].stack, players[1].stack);
+    //printBoard(board, players[0].stack, players[1].stack);
+
+    //document.getElementById('boardTable').rows[3].cells[2].innerHTML = 'dude'
+
+    // ------------------- classes --------------------------------
+    /*
+    class Piece {
+      constructor(color, value, player){
+        this.color = color;
+        this.value = value;
+        this.player = player;
+
+      }
+
+      createSprite(){
+        // draws the texture for the sprite using PIXI.Graphics
+        if (this.color == blue){
+          this.texture = PIXI.Texture.from('blue_piece.png')
+        }
+        else if (this.color == red){
+          this.texture = PIXI.Texture.from('red_piece.png')
+        }
+  
+        // creates and returns a PIXI sprite, adds it to the stage
+        this.sprite = new PIXI.Sprite(this.texture);
+        this.sprite.interactive = true;
+        this.sprite.anchor.set(0.5, 0.5)
+        this.sprite.width = squareSize *(this.value/5)
+        this.sprite.height = this.sprite.width
+
+        return this.sprite
+      }
+    }
+    */
+    // --------------------- functions --------------------------
+    function createBoardTable(){
+      var tbl = document.createElement('table');
+
+      for (i = 0; i < 4; i++){
+        var tr = tbl.insertRow();
+
+        for (j = 0; j < 4; j++){
+          var td = tr.insertCell();
+          td.style.border = '1px solid black';
+          td.style.width = '30px';
+          td.style.height = '30px';
+          td.style.textAlign = 'center';
+          td.id = 'board'+ i + j;
+          moveStr = '(' + i + ',' + j + ')';
+          td.setAttribute('onclick', 'makeMove' + moveStr);
+        }
+      }
+      return tbl;
+    }
+
+    function createStackTable(playerId){
+      var tbl = document.createElement('table');
+
+      for (i = 0; i < 3; i++){
+        var tr = tbl.insertRow();
+        var td = tr.insertCell();
+        //td.style.border = '1px solid black';
+        td.style.width = '30px';
+        td.style.height = '30px';
+        td.style.textAlign = 'center';
+        if (playerId == 0){
+          td.id = 'p1'+ i;
+          moveStr = '(-1,' + i + ')';
+          td.setAttribute('onclick', 'makeMove' + moveStr);
+        }
+        else {
+          td.id = 'p2' + i;
+          moveStr = '(-2,' + i + ')';
+          td.setAttribute('onclick', 'makeMove' + moveStr);
+        }
+      }
+
+      return tbl;
+    }
+
+
+    function createBoard(){
+      var board = new Array(4);
+      for (var i = 0; i < board.length; i++) {
+        board[i] = [[],[],[],[]];
+      }
+      return board
+    }
+
+    function createStack(valueIn){
+      var stack = [[],[],[]]
+      for (var i = 0; i < stack.length; i++) {
+        var x = new Array();
+        for (var j = 0; j < 4; j++){
+          x.push(valueIn*(j+1));
+          stack[i] = x;
+        }
+      }
+      return stack
+    }
+
+    function printBoard(boardIn, stack1In, stack2In){
+      for (i = 0; i < stack1In.length; i++){
+        p.innerHTML += '[' + stack1In[i] + ']'
+      }
+      p.innerHTML += '<br>'
+      
+      for (i = 0; i < board.length; i++){
+        for (j = 0; j < board[i].length; j++){
+          p.innerHTML += '[' + board[i][j] +']'
+        }
+        p.innerHTML += '<br>'
+      }
+      
+      for (i = 0; i < stack2In.length; i++){
+        p.innerHTML += '[' + stack2In[i] + ']'
+      } 
+      p.innerHTML += '<br>'
+      p.innerHTML += '---------------------------------<br>'
+    }
+
+
+    function getSelection(moveNumIn, movesArrIn){
+      return [movesArrIn[moveNumIn][0], movesArrIn[moveNumIn][1]]
+    }
+
+
+    function legalSelection(currentPlayerValueIn, pieceIn){
+      if (pieceIn == undefined){
+        console.log('bad selection');
+        p.innerHTML += "Illegal selection, pick again" + '<br>';
+        return 1
+      }
+      if (pieceIn * currentPlayerValueIn < 0){
+        console.log('bad selection');
+        p.innerHTML += "Illegal selection, pick again" + '<br>';
+        return 2
+      }
+      console.log('good selection');
+      return 0
+    }
+
+
+    function getTarget(moveNumIn, movesArrIn){
+      return [movesArrIn[moveNumIn][2], movesArrIn[moveNumIn][3]]
+    }
+
+
+    function legalTarget(pieceIn, txIn, tyIn, boardIn){
+      var squareArr = boardIn[txIn][tyIn];
+
+      if (squareArr.length == 0){
+        return 0
+      }
+      else if (Math.abs(pieceIn) > Math.abs(squareArr[squareArr.length -1])){
+       return 0
+      }
+      else {
+        p.innerHTML += "Illegal target, pick again" + '<br>';
+        return 1
+      }
+    }
+
+    function updateTable(boardIn, stack1In, stack2In){
+      for(i = 0; i < boardIn.length; i++){
+        for(j = 0; j < boardIn[i].length; j++){
+          if (boardIn[i][j].length == 0){
+            document.getElementById('board' + i + j).innerHTML = 0
+          }
+          else {
+          document.getElementById('board' + i + j).innerHTML = boardIn[i][j][board[i][j].length -1]
+          }
+        }
+      }
+
+      for (i = 0; i < stack1In.length; i++){
+        if (stack1In[i].length == 0){
+            document.getElementById('p1' + i).innerHTML = 0
+        }
+        else {
+          document.getElementById('p1' + i).innerHTML = stack1In[i][stack1In[i].length -1]
+        }
+      }
+      
+      for (i = 0; i < stack2In.length; i++){
+        if (stack2In[i].length == 0){
+            document.getElementById('p2' + i).innerHTML = 0
+        }
+        else {
+          document.getElementById('p2' + i).innerHTML = stack2In[i][stack2In[i].length -1]
+        }
+      }
+      
+    }
+
+
+    function makeMove(xIn, yIn){
+      console.log('move number: '+ moveNum);
+      console.log('current player: ' + currentPlayer);
+      p.innerHTML = 'move number: ' + moveNum + '<br>';
+      p.innerHTML += 'current player: ' + currentPlayer + '<br>';
+
+      if (waitMode == 0){
+        var sx = xIn, sy = yIn;
+        if (sx < 0){
+          piece = players[Math.abs(sx)-1].stack[sy].pop();
+        }
+        else{
+          piece = board[sx][sy].pop();
+        }
+
+        console.log(sx, sy, piece);
+        p.innerHTML += 'selection: ' + sx + sy + piece + '<br>'
+        var legalSelect = legalSelection(players[currentPlayer].value, piece);
+
+        if (legalSelect == 1){
+          console.log('error 1');
+          return 
+        }
+        if (legalSelect == 2){
+          console.log('error 2');
+          if (sx < 0){
+            players[Math.abs(sx)-1].stack[sy].push(piece);
+            return 
+          }
+          else{
+            board[sx][sy].push(piece);
+            return 
+          }
+        }
+      }
+
+      if (waitMode == 1){
+        var tx = xIn, ty = yIn
+        console.log(tx, ty, piece)
+        p.innerHTML += 'target: ' + tx + ty + '<br>'
+        legalTarg = legalTarget(piece, tx, ty, board);
+        if (legalTarg == 0){
+          board[tx][ty].push(piece);
+        }
+        else {
+          console.log('bad target')
+          return 1
+        }
+        currentPlayer = Math.abs(currentPlayer - 1);
+        moveNum ++;
+      }
+
+      waitMode = Math.abs(waitMode -1)
+
+      console.log(players[0].stack);
+      console.log(board);
+      console.log(players[1].stack);
+      console.log('----------------------------------')
+      //printBoard(board, players[0].stack, players[1].stack);
+      updateTable(board, players[0].stack, players[1].stack);
+    
+    }
+
+    /*
+    // ----------------------- setup Pixi ----------------------
+    //Create a Pixi Application and add canvas as an HTML element
+    let app = new PIXI.Application({width: 700, height: 400, backgroundColor: 0x888888});
+    app.stage.interactive = true;
     document.body.appendChild(app.view);
+    
+    boardSize = Math.min(0.95*app.screen.height, app.screen.width*2/3)
+    squareSize = boardSize / 4;
+    console.log(boardSize, squareSize)
+
+    pixiBoard = new PIXI.Container();
+    pixiBoard.x = app.screen.width / 2;
+    pixiBoard.y = app.screen.height / 2;
+
+    player1stack = new PIXI.Container();
+    player1stack.x = (app.screen.width - boardSize)/4
+    player1stack.y = app.screen.height / 2;
+
+    player2stack = new PIXI.Container();
+    player2stack.x = screen.width - (app.screen.width - boardSize)/4
+    player2stack.y = app.screen.height / 2;
+    app.stage.addChild(pixiBoard, player1stack, player2stack);
+
+    // ---------------------- main game loop -------------------------
+    var board = createBoard();
+  
+    // creates the 4x4 board inside the board Container
+    boardTexture = PIXI.Texture.from('4x4 board.png')
+    boardImg = new PIXI.Sprite(boardTexture);
+    boardImg.height = boardSize;
+    boardImg.width = boardSize;
+    boardImg.anchor.set(0.5,0.5);
+    pixiBoard.addChild(boardImg);
+
+    console.log((app.screen.width - boardSize)/2)
+    // creates stack of pieces
+    for (var i = 0; i < 4; i++) {
+      for (var j = 0; j < 3; j++) {
+        for (var k = 0; k < 1; k++) {
+          piece = new Piece(blue, i+1, PLAYER_1);
+          piece.createSprite();
+          piece.sprite.x = 0
+          piece.sprite.y = (j-1)*squareSize;
+          player1stack.addChild(piece.sprite);
+        }
+      }
+    }
+
+    var clicks = 0;
+    function clicked(){
+      clicks += 1;
+      console.log(clicks);
+    }
+    
+
+    app.stage.on('pointerdown', clicked);
+    */
+    
+
   </script>
 </body>
 </html>
