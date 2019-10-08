@@ -6,69 +6,28 @@
 </head>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/4.5.1/pixi.min.js"></script>
 <body>
-  <p id = 'moves'></p>
-  <p id = 'text'></p>
+  <h1 align="center">Gobblet</h1>
+  <p id = 'text' align="center"></p>
 
-<!--
-<table id = 'p1Stack'>
-        <tr><td id = 'p10' onclick = 'makeMove(-1,0)'>S1</td></tr>
-        <tr><td id = 'p11' onclick = 'makeMove(-1,1)'>S2</td></tr>
-        <tr><td id = 'p12' onclick = 'makeMove(-1,2)'>S3</td></tr>
-      </table>*\-->
-<table>
+
+<table align="center">
   <tr>
-    <td id = 'p1StackCell' >
-      <!--<table id = 'p1Stack'>
-        <tr><td id = 'p10' onclick = 'makeMove(-1,0)'>S1</td></tr>
-        <tr><td id = 'p11' onclick = 'makeMove(-1,1)'>S2</td></tr>
-        <tr><td id = 'p12' onclick = 'makeMove(-1,2)'>S3</td></tr>
-      </table>-->
-    </td>
+    <td id = 'p1StackCell' ></td>
     <td bgcolor='grey'></td>
-    <td id='boardCell'>
-      <!--<table>
-        <tr>
-          <td id = 'board00' onclick = 'makeMove(0,0)'>0</td>
-          <td id = 'board01' onclick = 'makeMove(0,1)'>0</td>
-          <td id = 'board02' onclick = 'makeMove(0,2)'>0</td>
-          <td id = 'board03' onclick = 'makeMove(0,3)'>0</td>
-        </tr>
-        <tr>
-          <td id = 'board10' onclick = 'makeMove(1,0)'>0</td>
-          <td id = 'board11' onclick = 'makeMove(1,1)'>0</td>
-          <td id = 'board12' onclick = 'makeMove(1,2)'>0</td>
-          <td id = 'board13' onclick = 'makeMove(1,3)'>0</td>
-        </tr>
-        <tr>
-          <td id = 'board20' onclick = 'makeMove(2,0)'>0</td>
-          <td id = 'board21' onclick = 'makeMove(2,1)'>0</td>
-          <td id = 'board22' onclick = 'makeMove(2,2)'>0</td>
-          <td id = 'board23' onclick = 'makeMove(2,3)'>0</td>
-        </tr>
-        <tr>
-          <td id = 'board30' onclick = 'makeMove(3,0)'>0</td>
-          <td id = 'board31' onclick = 'makeMove(3,1)'>0</td>
-          <td id = 'board32' onclick = 'makeMove(3,2)'>0</td>
-          <td id = 'board33' onclick = 'makeMove(3,3)'>0</td>
-        </tr>
-      </table>-->
-    </td>
-    <td  bgcolor='grey'></td>
-    <td id = 'p2StackCell'>
-      <!--<table>
-        <tr><td id = 'p20' onclick = 'makeMove(-2,0)'>S1</td></tr>
-        <tr><td id = 'p21' onclick = 'makeMove(-2,1)'>S2</td></tr>
-        <tr><td id = 'p22' onclick = 'makeMove(-2,2)'>S3</td></tr>
-      </table>-->
-    </td>
+    <td id='boardCell'></td>
+    <td bgcolor='grey'></td>
+    <td id = 'p2StackCell'></td>
   </tr>
 </table>
 
+<br>
+<button type = "button" id = "playAgainButton" onclick = "resetGame()" style="margin: 0 auto">click to play again</button>
 
 
   <script>
+    document.getElementById('playAgainButton').style.display = 'none'
     // --------------------- variables ------------------------------
-    //var boardTableText = ''
+
     var imageArr = []
     imageArr[0] = 'images/white';
     imageArr[1] = 'images/blue1.png';
@@ -81,9 +40,6 @@
     imageArr[-4] = 'images/red4.png';
 
     var p = document.getElementById('text');
-    var m = document.getElementById('moves');
-    var done = false;
-    var gameOver = false;
     
     var blue = 0x0000FF;
     var red = 0xFF0000;
@@ -121,47 +77,20 @@
     var currentPlayer = 0;
     var waitMode = 0;
     var piece = 0;
+    var sx = 0;
 
+    
     document.getElementById('boardCell').appendChild(createBoardTable());
     document.getElementById('p1StackCell').appendChild(createStackTable(0));
     document.getElementById('p2StackCell').appendChild(createStackTable(1));
     updateTable(board, players[0].stack, players[1].stack);
+
     //printBoard(board, players[0].stack, players[1].stack);
 
-    //document.getElementById('boardTable').rows[3].cells[2].innerHTML = 'dude'
 
-    // ------------------- classes --------------------------------
-    /*
-    class Piece {
-      constructor(color, value, player){
-        this.color = color;
-        this.value = value;
-        this.player = player;
-
-      }
-
-      createSprite(){
-        // draws the texture for the sprite using PIXI.Graphics
-        if (this.color == blue){
-          this.texture = PIXI.Texture.from('blue_piece.png')
-        }
-        else if (this.color == red){
-          this.texture = PIXI.Texture.from('red_piece.png')
-        }
-  
-        // creates and returns a PIXI sprite, adds it to the stage
-        this.sprite = new PIXI.Sprite(this.texture);
-        this.sprite.interactive = true;
-        this.sprite.anchor.set(0.5, 0.5)
-        this.sprite.width = squareSize *(this.value/5)
-        this.sprite.height = this.sprite.width
-
-        return this.sprite
-      }
-    }
-    */
     // --------------------- functions --------------------------
     function createBoardTable(){
+      //creates a table element that displays the board
       var tbl = document.createElement('table');
 
       for (i = 0; i < 4; i++){
@@ -177,7 +106,7 @@
           td.style.backgroundRepeat = 'no-repeat';
           td.style.backgroundPosition = 'center center';
           td.id = 'board'+ i + j;
-          moveStr = '(' + i + ',' + j + ')';
+          moveStr = '(' + j + ',' + i + ')';
           td.setAttribute('onclick', 'makeMove' + moveStr);
         }
       }
@@ -185,6 +114,7 @@
     }
 
     function createStackTable(playerId){
+      //creates a table element that displays a stack
       var tbl = document.createElement('table');
 
       for (i = 0; i < 3; i++){
@@ -207,32 +137,44 @@
           td.setAttribute('onclick', 'makeMove' + moveStr);
         }
       }
-
       return tbl;
     }
 
 
+    function resetGame(){
+      board = createBoard();
+      player1.stack = createStack(1);
+      player2.stack = createStack(-1);
+      updateTable(board, players[0].stack, players[1].stack);
+      document.getElementById('playAgainButton').style.display = 'none';
+    }
+
+
     function createBoard(){
+      //creates an empty 4x4 array that represents the board
       var board = new Array(4);
       for (var i = 0; i < board.length; i++) {
-        board[i] = [[],[],[],[]];
+        board[i] = [[0],[0],[0],[0]];
       }
       return board
     }
 
     function createStack(valueIn){
+      //creates a 3x1x4 array that represents a players stack of pieces
       var stack = [[],[],[]]
       for (var i = 0; i < stack.length; i++) {
         var x = new Array();
-        for (var j = 0; j < 4; j++){
-          x.push(valueIn*(j+1));
+        for (var j = 0; j < 5; j++){
+          x.push(valueIn*(j));
           stack[i] = x;
         }
       }
       return stack
     }
 
+    /*
     function printBoard(boardIn, stack1In, stack2In){
+      //not used rn
       for (i = 0; i < stack1In.length; i++){
         p.innerHTML += '[' + stack1In[i] + ']'
       }
@@ -251,17 +193,20 @@
       p.innerHTML += '<br>'
       p.innerHTML += '---------------------------------<br>'
     }
+    */
 
-
+    /* not used rn
     function getSelection(moveNumIn, movesArrIn){
       return [movesArrIn[moveNumIn][0], movesArrIn[moveNumIn][1]]
-    }
+    }*/
 
 
     function legalSelection(currentPlayerValueIn, pieceIn){
-      if (pieceIn == undefined){
+      //checks if the piece selected was legal
+      //returns 0 if good, 1 if no piece selected, and 2 if the opponets piece is select
+      if (pieceIn == 0){
         console.log('bad selection');
-        p.innerHTML += "Illegal selection, pick again" + '<br>';
+        p.innerHTML += "no piece, pick again" + '<br>';
         return 1
       }
       if (pieceIn * currentPlayerValueIn < 0){
@@ -273,42 +218,155 @@
       return 0
     }
 
-
+     /*not used rn
     function getTarget(moveNumIn, movesArrIn){
       return [movesArrIn[moveNumIn][2], movesArrIn[moveNumIn][3]]
+    }*/
+
+    function legalTarget(pieceIn, txIn, tyIn, boardIn){
+      //checks if a piece can move to a given square
+      //returns 0 if legal and 1 if illegal
+
+      //If the piece is smaller than the piece on the target square, return an error
+      if (Math.abs(pieceIn) <= Math.abs(getLargestPiece(boardIn, txIn, tyIn))){
+        p.innerHTML += "piece too small" + '<br>';
+        return 1
+      }
+
+      //checks if selected piece is from stack and if there is a piece on target square
+      // if the piece is part of three in a row move is legal, if not return and error
+      if (sx < 0 && Math.abs(getLargestPiece(boardIn, txIn, tyIn)) > 0){
+        if (threeInRow(boardIn, txIn, tyIn, players[currentPlayer].value) == true){
+          return 0
+        }
+        else{
+          p.innerHTML += "can't gobble that" + "<br>";
+          return 2
+        }
+      }
+      // returns legal
+      else{
+        return 0
+      }
+    }
+
+    function getLargestPiece(boardIn, xIn, yIn){
+      return boardIn[yIn][xIn][boardIn[yIn][xIn].length - 1]
     }
 
 
-    function legalTarget(pieceIn, txIn, tyIn, boardIn){
-      var squareArr = boardIn[txIn][tyIn];
+    function threeInRow(boardIn, xIn, yIn, currentPlayerValueIn){
+      var triosToCheckList = [];
+      for (i = 0; i < 4; i++){
+        if (i == 0){
+          var xDir = 1, yDir = 0;}
+        if (i == 1){
+          var xDir = 0, yDir = 1;}
+        if (i == 2){
+          var xDir = -1, yDir = 1;}
+        if (i == 3){
+          var xDir = 1, yDir = 1;}
+        
+        for (j = -2; j < 1; j++){
+          var xStart = xIn + j * xDir;
+          var yStart = yIn + j * yDir;
+          var count = 0;
+          console.log("direction: " + i + ", starting square: " + xStart + yStart)
+          
+          for (k = 0; k < 3; k++){
+            var sqX = xStart + k * xDir;
+            var sqY = yStart + k * yDir;
+            console.log("square: " + sqX + sqY);
+            if (0 <= sqX && sqX <= 3 && 0 <= sqY && sqY<= 3){
+              var largestPiece = getLargestPiece(boardIn, sqX, sqY);
+              if (largestPiece * currentPlayerValueIn < 0){
+                count += 1;
+              }
+            }
+          }
+          if (count == 3){
+            return true;
+          } 
+        }
+      }
 
-      if (squareArr.length == 0){
-        return 0
+    }
+
+    function checkForWinner(boardIn){
+      var lineValue = 0;
+      // row
+      for (i = 0; i < 4; i++){
+        for (j = 0; j < 4; j++){
+          largestPiece = boardIn[i][j][boardIn[i][j].length - 1]
+
+          if (largestPiece !== 0){
+            lineValue += (largestPiece)/(Math.abs(largestPiece))
+          }
+        }
+        if (Math.abs(lineValue) == 4){
+          document.getElementById("playAgainButton").style.display = "block";
+        }
+        lineValue = 0;
       }
-      else if (Math.abs(pieceIn) > Math.abs(squareArr[squareArr.length -1])){
-       return 0
+    
+      // column
+      for (i = 0; i < 4; i++){
+        for (j = 0; j < 4; j++){
+          largestPiece = boardIn[j][i][boardIn[j][i].length - 1]
+
+          if (largestPiece !== 0){
+            lineValue += (largestPiece)/(Math.abs(largestPiece))
+          }
+        }
+        if (Math.abs(lineValue) == 4){
+          document.getElementById("playAgainButton").style.display = "block";
+        }
+        lineValue = 0;
       }
-      else {
-        p.innerHTML += "Illegal target, pick again" + '<br>';
-        return 1
+
+      // diagonal \
+      for (i = 0; i < 4; i++){
+        largestPiece = boardIn[i][i][boardIn[i][i].length - 1];
+
+        if (largestPiece !== 0){
+          lineValue += (largestPiece)/(Math.abs(largestPiece))
+        }
       }
+      if (Math.abs(lineValue) == 4){
+        document.getElementById("playAgainButton").style.display = "block";
+      }
+      lineValue = 0;
+
+      // diagonal /
+      for (i = 0; i < 4; i++){
+        largestPiece = boardIn[i][3-i][boardIn[i][3-i].length - 1];
+
+        if (largestPiece !== 0){
+          lineValue += (largestPiece)/(Math.abs(largestPiece))
+        }
+      }
+      if (Math.abs(lineValue) == 4){
+        document.getElementById("playAgainButton").style.display = "block";
+      }
+      lineValue = 0;
+      
     }
 
     function updateTable(boardIn, stack1In, stack2In){
+      //updates the cells in the table displayed on the website page with images of pieces
       //board
       for(i = 0; i < boardIn.length; i++){
         for(j = 0; j < boardIn[i].length; j++){
           var square = document.getElementById('board' + i + j);
-          if (boardIn[i][j].length == 0){
+          /*if (boardIn[i][j].length == 0){
             square.style.backgroundImage = "URL(" + imageArr[0] + ")";
             square.innerHTML = 0;
           }
-          else {
-            var visiblePiece = boardIn[i][j][board[i][j].length -1]
-            square.style.backgroundImage = "URL(" + imageArr[visiblePiece] + ")";
-            square.innerHTML = visiblePiece;
-
-          }
+          else {*/
+          var visiblePiece = boardIn[i][j][board[i][j].length -1]
+          square.style.backgroundImage = "URL(" + imageArr[visiblePiece] + ")";
+          square.innerHTML = visiblePiece;
+          //}
         }
       }
       //stack1
@@ -340,28 +398,33 @@
       
     }
 
-
+    
     function makeMove(xIn, yIn){
+      //function called when a cell in the table is clicked on
       console.log('move number: '+ moveNum);
       console.log('current player: ' + currentPlayer);
-      p.innerHTML = 'move number: ' + moveNum + '<br>';
-      p.innerHTML += 'current player: ' + currentPlayer + '<br>';
+      p.innerHTML = ''
+      //p.innerHTML = 'move number: ' + moveNum + '<br>';
+      //p.innerHTML += 'current player: ' + currentPlayer + '<br>';
 
+      // waitmode is 0 when player needs to select a piece
       if (waitMode == 0){
-        var sx = xIn, sy = yIn;
+        sx = xIn
+        var sy = yIn;
         if (sx < 0){
           piece = players[Math.abs(sx)-1].stack[sy].pop();
         }
         else{
-          piece = board[sx][sy].pop();
+          piece = board[sy][sx].pop();
         }
 
         console.log(sx, sy, piece);
-        p.innerHTML += 'selection: ' + sx + sy + piece + '<br>'
+        //p.innerHTML += 'selection: ' + sx + sy + piece + '<br>'
         var legalSelect = legalSelection(players[currentPlayer].value, piece);
 
         if (legalSelect == 1){
           console.log('error 1');
+          board[sy][sx].push(piece);
           return 
         }
         if (legalSelect == 2){
@@ -371,24 +434,28 @@
             return 
           }
           else{
-            board[sx][sy].push(piece);
+            board[sy][sx].push(piece);
             return 
           }
         }
       }
 
+      //waitemode is 1 when a player has selected a piece and needs to move it
       if (waitMode == 1){
         var tx = xIn, ty = yIn
         console.log(tx, ty, piece)
-        p.innerHTML += 'target: ' + tx + ty + '<br>'
+        //p.innerHTML += 'target: ' + tx + ty + '<br>'
+
         legalTarg = legalTarget(piece, tx, ty, board);
         if (legalTarg == 0){
-          board[tx][ty].push(piece);
+          board[ty][tx].push(piece);
         }
         else {
           console.log('bad target')
           return 1
         }
+    
+        checkForWinner(board);
         currentPlayer = Math.abs(currentPlayer - 1);
         moveNum ++;
       }
