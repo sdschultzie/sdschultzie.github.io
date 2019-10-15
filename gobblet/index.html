@@ -22,7 +22,26 @@
 
 <br>
 <button type = "button" id = "playAgainButton" onclick = "resetGame()" style="margin: 0 auto">click to play again</button>
-
+<hr>
+<h1 align="center">Rules</h1>
+<h3>Goal</h3>
+<p>Align four pieces in a row, horizontally, vertically, or diagonally</p>
+<h3>Set-Up</h3>
+<p>Each player has 3 stacks of four pieces eof varying sizes. Only the largest piece is visible however, but when this piece is removed it uncovers the next piece of a smaller size underneath it and so on and so forth.</p>
+<h3>Play</h3>
+<p>Players take turns moving. The blue player goes first. For each turn a player can either</p>
+<ul>
+  <li>Put a new piece on the board from their stack.</li>
+  <li>Move one of their pieces on the board to an empty space</li>
+  <li>Gobble up a smaller size piece on the board with a larger piece of their color</li>
+</ul>
+<p>There is an exception to the second rule however. If the opponent has 3 pieces in a row, (including diagonals that aren't part of a four in a row line) you may gobble up one of the pieces in the line with a piece from your own stack</p>
+<h3>Notes</h3>
+<ul>
+  <li>Players are allowed to gobble their own pieces, but they can't do so using a piece from their own stack</li>
+  <li>If no one has any piece left in their stack play continues using the pieces on the board</li>
+  <li>You can't move a piece back onto your own stack</li>
+  <li>Once a piece is selected it must be played</li>
 
   <script>
     document.getElementById('playAgainButton').style.display = 'none'
@@ -41,33 +60,22 @@
 
     var p = document.getElementById('text');
     
-    var blue = 0x0000FF;
-    var red = 0xFF0000;
+    //var blue = 0x0000FF;
+    //var red = 0xFF0000;
     //var bluePiece = 
-
-    var fixedMoves = [
-      [-1, 2, 0, 0],
-      [-1, 2, 3, 3],
-      [-1, 2, 3, 3],
-      [-1, 2, 2, 3],
-      [-1, 2, 3, 3],
-      [2, 3, 2, 2],
-      [-1, 2, 0, 1],
-      [2, 2, 0, 2],
-      [-1, 2, 1, 0],
-      [1, 0, 2, 0]
-    ]
 
     var player1 = {
       value: 1,
-      color: blue,
+      color: 'blue',
       stack: createStack(1),
+      cpu: false,
       name: ''
     }
     var player2 = {
       value: -1,
-      color: red,
+      color: 'red',
       stack: createStack(-1),
+      cpu: false,
       name: ''
     }
 
@@ -194,42 +202,60 @@
       p.innerHTML += '---------------------------------<br>'
     }
     */
-
-    /* not used rn
-    function getSelection(moveNumIn, movesArrIn){
-      return [movesArrIn[moveNumIn][0], movesArrIn[moveNumIn][1]]
-    }*/
-
+    function getLargestPiece(boardIn, xIn, yIn){
+      return boardIn[yIn][xIn][boardIn[yIn][xIn].length - 1]
+    }
 
     function legalSelection(currentPlayerValueIn, pieceIn){
       //checks if the piece selected was legal
       //returns 0 if good, 1 if no piece selected, and 2 if the opponets piece is select
       if (pieceIn == 0){
-        console.log('bad selection');
-        p.innerHTML += "no piece, pick again" + '<br>';
+        //console.log('bad selection');
+        //p.innerHTML += "no piece, pick again" + '<br>';
         return 1
       }
       if (pieceIn * currentPlayerValueIn < 0){
-        console.log('bad selection');
-        p.innerHTML += "Illegal selection, pick again" + '<br>';
+        //console.log('bad selection');
+        //p.innerHTML += "Illegal selection, pick again" + '<br>';
         return 2
       }
       console.log('good selection');
       return 0
     }
 
-     /*not used rn
-    function getTarget(moveNumIn, movesArrIn){
-      return [movesArrIn[moveNumIn][2], movesArrIn[moveNumIn][3]]
-    }*/
+
+        function selectablePiecesList(boardIn, currentPlayerIn){
+      var listOfPieces = [] //[[x, y, size]]
+      //board
+      for (i = 0; i < 4; i++){
+        for(j = 0; j < 4; j++){
+          var pieceSize = getLargestPiece(board, i, j);
+          if (legalSelection(players[currentPlayerIn].value, pieceSize) == 0){
+            listOfPieces.push([i, j, pieceSize])
+          }
+        }
+      }
+      //stack
+      for (i = 0; i < 3; i++){
+        var stack = players[currentPlayerIn].stack
+        var pieceSize = stack[i][stack[i].length - 1]
+        var stackX = (currentPlayer * -1) - 1
+        if (pieceSize != 0){
+          listOfPieces.push([stackX, i, pieceSize])
+        }
+      }
+      console.log(listOfPieces)
+      return listOfPieces
+    }
+
 
     function legalTarget(pieceIn, txIn, tyIn, boardIn){
       //checks if a piece can move to a given square
-      //returns 0 if legal and 1 if illegal
-
+      //returns 0 if legal and 1 or 2 if illegal
+      //console.log(txIn, tyIn, pieceIn);
       //If the piece is smaller than the piece on the target square, return an error
       if (Math.abs(pieceIn) <= Math.abs(getLargestPiece(boardIn, txIn, tyIn))){
-        p.innerHTML += "piece too small" + '<br>';
+        //p.innerHTML += "piece too small" + '<br>';
         return 1
       }
 
@@ -240,7 +266,7 @@
           return 0
         }
         else{
-          p.innerHTML += "can't gobble that" + "<br>";
+          //p.innerHTML += "can't gobble that" + "<br>";
           return 2
         }
       }
@@ -250,11 +276,30 @@
       }
     }
 
-    function getLargestPiece(boardIn, xIn, yIn){
-      return boardIn[yIn][xIn][boardIn[yIn][xIn].length - 1]
+
+    function validTargetsList (boardIn, pieceIn){
+      var listOfSquares = [];
+      console.log(pieceIn);
+      //checks each square to see if its legal, if so adds square to listOfSquares
+      for (var i = 0; i < 4; i++){
+        for (var j = 0; j < 4; j++){
+          var x = legalTarget(pieceIn, i, j, boardIn);
+          
+          if (x == 0){
+            listOfSquares.push([i, j]);
+          }
+          /*else {
+            console.log('bad target');
+            console.log(i,j)
+          }*/
+        }
+      }
+      //console.log(listOfSquares)
+      return listOfSquares
     }
 
 
+    //algorithm for checking three in a row rule
     function threeInRow(boardIn, xIn, yIn, currentPlayerValueIn){
       var triosToCheckList = [];
       for (i = 0; i < 4; i++){
@@ -271,12 +316,12 @@
           var xStart = xIn + j * xDir;
           var yStart = yIn + j * yDir;
           var count = 0;
-          console.log("direction: " + i + ", starting square: " + xStart + yStart)
+          //console.log("direction: " + i + ", starting square: " + xStart + yStart)
           
           for (k = 0; k < 3; k++){
             var sqX = xStart + k * xDir;
             var sqY = yStart + k * yDir;
-            console.log("square: " + sqX + sqY);
+            //console.log("square: " + sqX + sqY);
             if (0 <= sqX && sqX <= 3 && 0 <= sqY && sqY<= 3){
               var largestPiece = getLargestPiece(boardIn, sqX, sqY);
               if (largestPiece * currentPlayerValueIn < 0){
@@ -409,6 +454,7 @@
 
       // waitmode is 0 when player needs to select a piece
       if (waitMode == 0){
+
         sx = xIn
         var sy = yIn;
         if (sx < 0){
@@ -423,11 +469,13 @@
         var legalSelect = legalSelection(players[currentPlayer].value, piece);
 
         if (legalSelect == 1){
+          p.innerHTML += "no piece, pick again"
           console.log('error 1');
           board[sy][sx].push(piece);
           return 
         }
         if (legalSelect == 2){
+          p.innerHTML += "illegal selection pick again"
           console.log('error 2');
           if (sx < 0){
             players[Math.abs(sx)-1].stack[sy].push(piece);
@@ -440,8 +488,9 @@
         }
       }
 
-      //waitemode is 1 when a player has selected a piece and needs to move it
+      //waitMode is 1 when a player has selected a piece and needs to move it
       if (waitMode == 1){
+
         var tx = xIn, ty = yIn
         console.log(tx, ty, piece)
         //p.innerHTML += 'target: ' + tx + ty + '<br>'
@@ -451,85 +500,71 @@
           board[ty][tx].push(piece);
         }
         else {
+          p.innerHTML += 'bad target';
           console.log('bad target')
-          return 1
+          return 
         }
     
         checkForWinner(board);
         currentPlayer = Math.abs(currentPlayer - 1);
         moveNum ++;
       }
-
-      waitMode = Math.abs(waitMode -1)
-
       console.log(players[0].stack);
       console.log(board);
       console.log(players[1].stack);
       console.log('----------------------------------')
       //printBoard(board, players[0].stack, players[1].stack);
       updateTable(board, players[0].stack, players[1].stack);
-    
-    }
 
-    /*
-    // ----------------------- setup Pixi ----------------------
-    //Create a Pixi Application and add canvas as an HTML element
-    let app = new PIXI.Application({width: 700, height: 400, backgroundColor: 0x888888});
-    app.stage.interactive = true;
-    document.body.appendChild(app.view);
-    
-    boardSize = Math.min(0.95*app.screen.height, app.screen.width*2/3)
-    squareSize = boardSize / 4;
-    console.log(boardSize, squareSize)
+      // determines wether or not the AI is playing. adjusts waitmode accordingly. 
+      if (players[1].cpu == true){
+        waitMode += 1
+      }
+      else{
+        waitMode = Math.abs(waitMode -1)
+      }
 
-    pixiBoard = new PIXI.Container();
-    pixiBoard.x = app.screen.width / 2;
-    pixiBoard.y = app.screen.height / 2;
-
-    player1stack = new PIXI.Container();
-    player1stack.x = (app.screen.width - boardSize)/4
-    player1stack.y = app.screen.height / 2;
-
-    player2stack = new PIXI.Container();
-    player2stack.x = screen.width - (app.screen.width - boardSize)/4
-    player2stack.y = app.screen.height / 2;
-    app.stage.addChild(pixiBoard, player1stack, player2stack);
-
-    // ---------------------- main game loop -------------------------
-    var board = createBoard();
-  
-    // creates the 4x4 board inside the board Container
-    boardTexture = PIXI.Texture.from('4x4 board.png')
-    boardImg = new PIXI.Sprite(boardTexture);
-    boardImg.height = boardSize;
-    boardImg.width = boardSize;
-    boardImg.anchor.set(0.5,0.5);
-    pixiBoard.addChild(boardImg);
-
-    console.log((app.screen.width - boardSize)/2)
-    // creates stack of pieces
-    for (var i = 0; i < 4; i++) {
-      for (var j = 0; j < 3; j++) {
-        for (var k = 0; k < 1; k++) {
-          piece = new Piece(blue, i+1, PLAYER_1);
-          piece.createSprite();
-          piece.sprite.x = 0
-          piece.sprite.y = (j-1)*squareSize;
-          player1stack.addChild(piece.sprite);
+      //waitMode is 2 when playing against cpu and its the cpu's turn
+      if (waitMode == 2){
+        console.log("AI TURN")
+        //randomly chooses piece to move
+        var legalSelections = selectablePiecesList(board, currentPlayer);
+        var selection = legalSelections[Math.floor(Math.random() * legalSelections.length)];
+        sx = selection[0];
+        sy = selection[1];
+        piece = selection[2];
+        if (sx < 0){
+          players[Math.abs(sx)-1].stack[sy].pop();
         }
+        else{
+          board[sy][sx].pop();
+        }
+        console.log("selected piece: " + sx + sy + piece)
+
+        //randomly chooses target 
+        var legalTargets = validTargetsList(board, piece);
+        console.log(legalTargets);
+        var target = legalTargets[Math.floor(Math.random() * legalTargets.length)];
+        tx = target[0];
+        ty = target[1];
+        console.log("target: " + tx, ty)
+        
+        board[ty][tx].push(piece)
+        
+
+        checkForWinner(board);
+        currentPlayer = Math.abs(currentPlayer - 1);
+        moveNum ++;
+        waitMode = 0;
+
+        console.log(players[0].stack);
+        console.log(board);
+        console.log(players[1].stack);
+        console.log('----------------------------------')
+        //printBoard(board, players[0].stack, players[1].stack);
+        updateTable(board, players[0].stack, players[1].stack);
       }
     }
-
-    var clicks = 0;
-    function clicked(){
-      clicks += 1;
-      console.log(clicks);
-    }
-    
-
-    app.stage.on('pointerdown', clicked);
-    */
-    
 
   </script>
 </body>
