@@ -444,7 +444,7 @@
     }
 
     
-    function makeMove(xIn, yIn){
+     function makeMove(xIn, yIn){
       //function called when a cell in the table is clicked on
       console.log('move number: '+ moveNum);
       console.log('current player: ' + currentPlayer);
@@ -471,8 +471,15 @@
         if (legalSelect == 1){
           p.innerHTML += "no piece, pick again"
           console.log('error 1');
-          board[sy][sx].push(piece);
-          return 
+          if (sx < 0){
+            p.innerHTML += "clicked stack"
+            players[Math.abs(sx)-1].stack[sy].push(0)
+            return
+          }
+          else {
+            p.innerHTML += "clicked board"
+            board[sy][sx].push(piece);
+            return 
         }
         if (legalSelect == 2){
           p.innerHTML += "illegal selection pick again"
@@ -487,7 +494,8 @@
           }
         }
       }
-
+        
+        
       //waitMode is 1 when a player has selected a piece and needs to move it
       if (waitMode == 1){
 
