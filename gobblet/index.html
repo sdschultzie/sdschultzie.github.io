@@ -465,13 +465,12 @@
         }
 
         console.log(sx, sy, piece);
-        //p.innerHTML += 'selection: ' + sx + sy + piece + '<br>'
+        p.innerHTML += 'selection: ' + sx + sy + piece + '<br>'
         var legalSelect = legalSelection(players[currentPlayer].value, piece);
 
         if (legalSelect == 1){
           p.innerHTML += "no piece, pick again"
           console.log('error 1');
-          p.innerHTML += "clicked board"
           board[sy][sx].push(piece);
           return 
         }
