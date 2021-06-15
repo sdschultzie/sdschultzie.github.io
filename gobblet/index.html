@@ -472,10 +472,12 @@
           p.innerHTML += "no piece, pick again"
           console.log('error 1');
           if (sx < 0){
-            players[Math.ads(sx)-1.stack[sy].push(piece)
+            p.innerHTML += ": clicked stack"
+            players[Math.abs(sx)-1].stack[sy].push(piece)
             return
           }
           else{
+            p.innerHTML += ": clicked board"
             board[sy][sx].push(piece);
             return
           }
