@@ -21,655 +21,551 @@
 </table>
 
 <br>
-<button type = "button" id = "playAgainButton" onclick = "resetGame()" style="display: block; margin: 0 auto">click to play again</button>
+<button type = "button" id = "playAgainButton" onclick = "resetGame()" style="margin: 0 auto">click to play again</button>
 <hr>
 <h1 align="center">Rules</h1>
 <h3>Goal</h3>
 <p>Align four pieces in a row, horizontally, vertically, or diagonally</p>
 <h3>Set-Up</h3>
-<p>Each player has 3 stacks of four pieces of varying sizes. Only the largest piece is visible. However when this piece is removed it uncovers the next piece of a smaller size underneath it and so on and so forth.</p>
+<p>Each player has 3 stacks of four pieces eof varying sizes. Only the largest piece is visible however, but when this piece is removed it uncovers the next piece of a smaller size underneath it and so on and so forth.</p>
 <h3>Play</h3>
 <p>Players take turns moving. The blue player goes first. For each turn a player can either</p>
 <ul>
   <li>Put a new piece on the board from their stack.</li>
   <li>Move one of their pieces on the board to an empty space</li>
-  <li>Gobble up a smaller size piece on the board with a larger piece of their color that is also on the board</li>
+  <li>Gobble up a smaller size piece on the board with a larger piece of their color</li>
 </ul>
-<p>There is an exception to the second rule. If the opponent has 3 pieces in a row, (including diagonals that aren't part of a four-in-a-row line) you may gobble up one of the pieces in the line with a piece from your own stack</p>
+<p>There is an exception to the second rule however. If the opponent has 3 pieces in a row, (including diagonals that aren't part of a four in a row line) you may gobble up one of the pieces in the line with a piece from your own stack</p>
 <h3>Notes</h3>
 <ul>
   <li>Players are allowed to gobble their own pieces, but they can't do so using a piece from their own stack</li>
-  <li>If no one has any pieces left in their stack play continues using the pieces on the board.</li>
+  <li>If no one has any piece left in their stack play continues using the pieces on the board</li>
   <li>You can't move a piece back onto your own stack</li>
   <li>Once a piece is selected it must be played</li>
 
-<script>
-  document.getElementById('playAgainButton').style.visibility = 'hidden'
-  // --------------------- variables ------------------------------
+  <script>
+    document.getElementById('playAgainButton').style.display = 'none'
+    // --------------------- variables ------------------------------
 
-  var imageArr = []
-  imageArr[0] = 'images/white';
-  imageArr[1] = 'images/blue1.png';
-  imageArr[2] = 'images/blue2.png';
-  imageArr[3] = 'images/blue3.png';
-  imageArr[4] = 'images/blue4.png';
-  imageArr[-1] = 'images/red1.png';
-  imageArr[-2] = 'images/red2.png';
-  imageArr[-3] = 'images/red3.png';
-  imageArr[-4] = 'images/red4.png';
+    var imageArr = []
+    imageArr[0] = 'images/white';
+    imageArr[1] = 'images/blue1.png';
+    imageArr[2] = 'images/blue2.png';
+    imageArr[3] = 'images/blue3.png';
+    imageArr[4] = 'images/blue4.png';
+    imageArr[-1] = 'images/red1.png';
+    imageArr[-2] = 'images/red2.png';
+    imageArr[-3] = 'images/red3.png';
+    imageArr[-4] = 'images/red4.png';
 
-  var p = document.getElementById('text');
-  
-  //var blue = 0x0000FF;
-  //var red = 0xFF0000;
-  //var bluePiece = 
+    var p = document.getElementById('text');
+    
+    //var blue = 0x0000FF;
+    //var red = 0xFF0000;
+    //var bluePiece = 
 
-  var player1 = {
-    value: 1,
-    color: 'blue',
-    stack: createStack(1),
-    cpu: false,
-    name: ''
-  }
-  var player2 = {
-    value: -1,
-    color: 'red',
-    stack: createStack(-1),
-    cpu: true,
-    name: ''
-  }
+    var player1 = {
+      value: 1,
+      color: 'blue',
+      stack: createStack(1),
+      cpu: false,
+      name: ''
+    }
+    var player2 = {
+      value: -1,
+      color: 'red',
+      stack: createStack(-1),
+      cpu: false,
+      name: ''
+    }
 
-  players = [player1, player2];
-  var board = createBoard();
-  var moveNum = 0;
-  var currentPlayer = 0;
-  var waitMode = 0;
-  var piece = 0;
-  var sx = 0;
+    players = [player1, player2];
+    var board = createBoard();
+    var moveNum = 0;
+    var currentPlayer = 0;
+    var waitMode = 0;
+    var piece = 0;
+    var sx = 0;
 
-  
-  document.getElementById('boardCell').appendChild(createBoardTable());
-  document.getElementById('p1StackCell').appendChild(createStackTable(0));
-  document.getElementById('p2StackCell').appendChild(createStackTable(1));
-  updateTable(board, players[0].stack, players[1].stack);
+    
+    document.getElementById('boardCell').appendChild(createBoardTable());
+    document.getElementById('p1StackCell').appendChild(createStackTable(0));
+    document.getElementById('p2StackCell').appendChild(createStackTable(1));
+    updateTable(board, players[0].stack, players[1].stack);
 
-  //printBoard(board, players[0].stack, players[1].stack);
+    //printBoard(board, players[0].stack, players[1].stack);
 
 
-  // --------------------- functions --------------------------
-  function createBoardTable(){
-    //creates a table element that displays the board
-    var tbl = document.createElement('table');
+    // --------------------- functions --------------------------
+    function createBoardTable(){
+      //creates a table element that displays the board
+      var tbl = document.createElement('table');
 
-    for (i = 0; i < 4; i++){
-      var tr = tbl.insertRow();
+      for (i = 0; i < 4; i++){
+        var tr = tbl.insertRow();
 
-      for (j = 0; j < 4; j++){
+        for (j = 0; j < 4; j++){
+          var td = tr.insertCell();
+          td.style.border = '1px solid black';
+          td.style.width = '100px';
+          td.style.height = '100px';
+          td.style.textAlign = 'center';
+          td.style.backgroundImage = "URL(" + imageArr[0] + ")";
+          td.style.backgroundRepeat = 'no-repeat';
+          td.style.backgroundPosition = 'center center';
+          td.id = 'board'+ i + j;
+          moveStr = '(' + j + ',' + i + ')';
+          td.setAttribute('onclick', 'makeMove' + moveStr);
+        }
+      }
+      return tbl;
+    }
+
+    function createStackTable(playerId){
+      //creates a table element that displays a stack
+      var tbl = document.createElement('table');
+
+      for (i = 0; i < 3; i++){
+        var tr = tbl.insertRow();
         var td = tr.insertCell();
-        td.style.border = '1px solid black';
+        //td.style.border = '1px solid black';
         td.style.width = '100px';
         td.style.height = '100px';
         td.style.textAlign = 'center';
-        td.style.backgroundImage = "URL(" + imageArr[0] + ")";
-        td.style.backgroundRepeat = 'no-repeat';
         td.style.backgroundPosition = 'center center';
-        td.id = 'board'+ i + j;
-        moveStr = '(board,' + j + ',' + i + ')';        td.setAttribute('onclick', 'makeMove' + moveStr);
+        td.style.backgroundRepeat = 'no-repeat';
+        if (playerId == 0){
+          td.id = 'p1'+ i;
+          moveStr = '(-1,' + i + ')';
+          td.setAttribute('onclick', 'makeMove' + moveStr);
+        }
+        else {
+          td.id = 'p2' + i;
+          moveStr = '(-2,' + i + ')';
+          td.setAttribute('onclick', 'makeMove' + moveStr);
+        }
       }
+      return tbl;
     }
-    return tbl;
-  }
 
-  function createStackTable(playerId){
-    //creates a table element that displays a stack
-    var tbl = document.createElement('table');
 
-    for (i = 0; i < 3; i++){
-      var tr = tbl.insertRow();
-      var td = tr.insertCell();
-      //td.style.border = '1px solid black';
-      td.style.width = '100px';
-      td.style.height = '100px';
-      td.style.textAlign = 'center';
-      td.style.backgroundPosition = 'center center';
-      td.style.backgroundRepeat = 'no-repeat';
-      if (playerId == 0){
-        td.id = 'p1'+ i;
-        moveStr = '(board,-1,' + i + ')';
-        td.setAttribute('onclick', 'makeMove' + moveStr);
+    function resetGame(){
+      board = createBoard();
+      player1.stack = createStack(1);
+      player2.stack = createStack(-1);
+      updateTable(board, players[0].stack, players[1].stack);
+      document.getElementById('playAgainButton').style.display = 'none';
+    }
+
+
+    function createBoard(){
+      //creates an empty 4x4 array that represents the board
+      var board = new Array(4);
+      for (var i = 0; i < board.length; i++) {
+        board[i] = [[0],[0],[0],[0]];
       }
-      else {
-        td.id = 'p2' + i;
-        moveStr = '(board,-2,' + i + ')';
-        td.setAttribute('onclick', 'makeMove' + moveStr);
+      return board
+    }
+
+    function createStack(valueIn){
+      //creates a 3x1x4 array that represents a players stack of pieces
+      var stack = [[],[],[]]
+      for (var i = 0; i < stack.length; i++) {
+        var x = new Array();
+        for (var j = 0; j < 5; j++){
+          x.push(valueIn*(j));
+          stack[i] = x;
+        }
       }
+      return stack
     }
-    return tbl;
-  }
 
-
-  function resetGame(){
-    p.innerHTML = ''
-    board = createBoard();
-    player1.stack = createStack(1);
-    player2.stack = createStack(-1);
-    updateTable(board, players[0].stack, players[1].stack);
-    document.getElementById('playAgainButton').style.visibility = 'hidden';
-  }
-
-
-  function createBoard(){
-    //creates an empty 4x4 array that represents the board
-    var board = new Array(4);
-    for (var i = 0; i < board.length; i++) {
-      board[i] = [[0],[0],[0],[0]];
-    }
-    return board
-  }
-
-  function createStack(valueIn){
-    //creates a 3x1x4 array that represents a players stack of pieces
-    var stack = [[],[],[]]
-    for (var i = 0; i < stack.length; i++) {
-      var x = new Array();
-      for (var j = 0; j < 5; j++){
-        x.push(valueIn*(j));
-        stack[i] = x;
-      }
-    }
-    return stack
-  }
-
-  /*
-  function printBoard(boardIn, stack1In, stack2In){
-    //not used rn
-    for (i = 0; i < stack1In.length; i++){
-      p.innerHTML += '[' + stack1In[i] + ']'
-    }
-    p.innerHTML += '<br>'
-    
-    for (i = 0; i < board.length; i++){
-      for (j = 0; j < board[i].length; j++){
-        p.innerHTML += '[' + board[i][j] +']'
+    /*
+    function printBoard(boardIn, stack1In, stack2In){
+      //not used rn
+      for (i = 0; i < stack1In.length; i++){
+        p.innerHTML += '[' + stack1In[i] + ']'
       }
       p.innerHTML += '<br>'
-    }
-    
-    for (i = 0; i < stack2In.length; i++){
-      p.innerHTML += '[' + stack2In[i] + ']'
-    } 
-    p.innerHTML += '<br>'
-    p.innerHTML += '---------------------------------<br>'
-  }
-  */
-  function getLargestPiece(boardIn, xIn, yIn){
-    return boardIn[yIn][xIn][boardIn[yIn][xIn].length - 1]
-  }
-
-
-  function legalSelection(currentPlayerValueIn, pieceIn){
-    //checks if the piece selected was legal
-    //returns 0 if good, 1 if no piece selected, and 2 if the opponets piece is select
-    if (pieceIn == 0){
-      //console.log('bad selection');
-      //p.innerHTML += "no piece, pick again" + '<br>';
-      return 1
-    }
-    if (pieceIn * currentPlayerValueIn < 0){
-      //console.log('bad selection');
-      //p.innerHTML += "Illegal selection, pick again" + '<br>';
-      return 2
-    }
-    console.log('good selection');
-    return 0
-  }
-
-
-  function selectablePiecesList(boardIn, currentPlayerIn){
-    var listOfPieces = [] //[[x, y, size]]
-    //board
-    for (i = 0; i < 4; i++){
-      for(j = 0; j < 4; j++){
-        var pieceSize = getLargestPiece(board, i, j);
-        if (legalSelection(players[currentPlayerIn].value, pieceSize) == 0){
-          listOfPieces.push([i, j, pieceSize])
+      
+      for (i = 0; i < board.length; i++){
+        for (j = 0; j < board[i].length; j++){
+          p.innerHTML += '[' + board[i][j] +']'
         }
+        p.innerHTML += '<br>'
       }
+      
+      for (i = 0; i < stack2In.length; i++){
+        p.innerHTML += '[' + stack2In[i] + ']'
+      } 
+      p.innerHTML += '<br>'
+      p.innerHTML += '---------------------------------<br>'
     }
-    //stack
-    for (i = 0; i < 3; i++){
-      var stack = players[currentPlayerIn].stack
-      var pieceSize = stack[i][stack[i].length - 1]
-      var stackX = (currentPlayer * -1) - 1
-      if (pieceSize != 0){
-        listOfPieces.push([stackX, i, pieceSize])
-      }
-    }
-    console.log(listOfPieces)
-    return listOfPieces
-  }
-
-
-  function legalTarget(pieceIn, txIn, tyIn, boardIn){
-    //checks if a piece can move to a given square
-    //returns 0 if legal and 1 or 2 if illegal
-    //console.log(txIn, tyIn, pieceIn);
-    //If the piece is smaller than the piece on the target square, return an error
-    if (Math.abs(pieceIn) <= Math.abs(getLargestPiece(boardIn, txIn, tyIn))){
-      //p.innerHTML += "piece too small" + '<br>';
-      return 1
+    */
+    function getLargestPiece(boardIn, xIn, yIn){
+      return boardIn[yIn][xIn][boardIn[yIn][xIn].length - 1]
     }
 
-    //checks if selected piece is from stack and if there is a piece on target square
-    // if the piece is part of three in a row move is legal, if not return an error
-    if (sx < 0 && Math.abs(getLargestPiece(boardIn, txIn, tyIn)) > 0){
-      if (threeInRow(boardIn, txIn, tyIn, players[currentPlayer].value) == true){
-        return 0
+    function legalSelection(currentPlayerValueIn, pieceIn){
+      //checks if the piece selected was legal
+      //returns 0 if good, 1 if no piece selected, and 2 if the opponets piece is select
+      if (pieceIn == 0){
+        //console.log('bad selection');
+        //p.innerHTML += "no piece, pick again" + '<br>';
+        return 1
       }
-      else{
-        //p.innerHTML += "can't gobble that" + "<br>";
+      else if (pieceIn * currentPlayerValueIn < 0){
+        //console.log('bad selection');
+        //p.innerHTML += "Illegal selection, pick again" + '<br>';
         return 2
       }
-    }
-    // returns legal
-    else{
+      console.log('good selection');
       return 0
     }
-  }
 
 
-  function validTargetsList (boardIn, pieceIn){
-    var listOfSquares = [];
-    console.log(pieceIn);
-    //checks each square to see if its legal, if so adds square to listOfSquares
-    for (var i = 0; i < 4; i++){
-      for (var j = 0; j < 4; j++){
-        var x = legalTarget(pieceIn, i, j, boardIn);
-        
-        if (x == 0){
-          listOfSquares.push([i, j]);
-        }
-        /*else {
-          console.log('bad target');
-          console.log(i,j)
-        }*/
-      }
-    }
-    //console.log(listOfSquares)
-    return listOfSquares
-  }
-
-
-  //algorithm for checking three in a row rule
-  function threeInRow(boardIn, xIn, yIn, currentPlayerValueIn){
-    var triosToCheckList = [];
-    for (i = 0; i < 4; i++){
-      if (i == 0){
-        var xDir = 1, yDir = 0;}
-      if (i == 1){
-        var xDir = 0, yDir = 1;}
-      if (i == 2){
-        var xDir = -1, yDir = 1;}
-      if (i == 3){
-        var xDir = 1, yDir = 1;}
-      
-      for (j = -2; j < 1; j++){
-        var xStart = xIn + j * xDir;
-        var yStart = yIn + j * yDir;
-        var count = 0;
-        //console.log("direction: " + i + ", starting square: " + xStart + yStart)
-        
-        for (k = 0; k < 3; k++){
-          var sqX = xStart + k * xDir;
-          var sqY = yStart + k * yDir;
-          //console.log("square: " + sqX + sqY);
-          if (0 <= sqX && sqX <= 3 && 0 <= sqY && sqY<= 3){
-            var largestPiece = getLargestPiece(boardIn, sqX, sqY);
-            if (largestPiece * currentPlayerValueIn < 0){
-              count += 1;
-            }
-          }
-        }
-        if (count == 3){
-          return true;
-        } 
-      }
-    }
-  }
-
-
-  function getLineValues(boardIn){
-    var lineValue = 0;
-    var lineValuesList = [];
-
-    // row
-    for (i = 0; i < 4; i++){
-      for (j = 0; j < 4; j++){
-        largestPiece = getLargestPiece(boardIn, j, i);
-        if (largestPiece !== 0){
-          lineValue += (largestPiece)/(Math.abs(largestPiece))
-        }
-      }
-      lineValuesList.push(lineValue)
-      lineValue = 0;
-    }
-
-    // column
-    for (i = 0; i < 4; i++){
-      for (j = 0; j < 4; j++){
-        largestPiece = getLargestPiece(boardIn, i, j)
-        if (largestPiece !== 0){
-          lineValue += (largestPiece)/(Math.abs(largestPiece))
-        }
-      }
-      lineValuesList.push(lineValue)
-      lineValue = 0;
-    }
-
-    // diagonal \
-    for (i = 0; i < 4; i++){
-      largestPiece = getLargestPiece(boardIn, i, i)
-      if (largestPiece !== 0){
-        lineValue += (largestPiece)/(Math.abs(largestPiece))
-      }
-    }
-    lineValuesList.push(lineValue)
-    lineValue = 0;
-
-    // diagonal /
-    for (i = 0; i < 4; i++){
-      largestPiece = getLargestPiece(board, i, 3-i);
-      if (largestPiece !== 0){
-        lineValue += (largestPiece)/(Math.abs(largestPiece))
-      }
-    }
-    lineValuesList.push(lineValue)
-    lineValue = 0;
-    return lineValuesList
-  }
-  
-
-  function scoreBoard(boardIn){
-    var score = 0
-    var l = getLineValues(boardIn);
-    // score each individual square
-    // 1pt for piece on board, 1pt for visible piece on board
-    for (i=0; i < 4; i++){
-      for (j=0; j < 4; j++){
-        for (k=1; k <= [board[i][j].length - 1]; k++){
-          var piece = board[i][j][k];
-          score += piece/Math.abs(piece);
-          if (piece == getLargestPiece(boardIn, j, i)){
-            score += piece/Math.abs(piece)
+    function selectablePiecesList(boardIn, currentPlayerIn){
+      var listOfPieces = [] //[[x, y, size]]
+      //board
+      for (i = 0; i < 4; i++){
+        for(j = 0; j < 4; j++){
+          var pieceSize = getLargestPiece(board, i, j);
+          if (legalSelection(players[currentPlayerIn].value, pieceSize) == 0){
+            listOfPieces.push([i, j, pieceSize])
           }
         }
       }
-    }
-
-    // score each line
-    for (lineScore of l){
-      if (lineScore != 0){
-        score += (lineScore/Math.abs(lineScore))*(lineScore**2)
-      }
-    }
-    console.log("board score: " + score);
-    return score
-  }
-
-
-  function checkForWinner(boardIn){
-    var l = getLineValues(boardIn);
-    for (i = 0; i < l.length; i++){
-      if (Math.abs(l[i]) == 4){
-        document.getElementById('playAgainButton').style.visibility = "visible";
-        p.innerHTML = "game over";
-        return true, i/Math.abs(i);
-      }
-    }
-  }
-
-  function updateTable(boardIn, stack1In, stack2In){
-    //updates the cells in the table displayed on the website page with images of pieces
-    //board
-    for(i = 0; i < boardIn.length; i++){
-      for(j = 0; j < boardIn[i].length; j++){
-        var square = document.getElementById('board' + i + j);
-        /*if (boardIn[i][j].length == 0){
-          square.style.backgroundImage = "URL(" + imageArr[0] + ")";
-          square.innerHTML = 0;
-        }
-        else {*/
-        var visiblePiece = boardIn[i][j][board[i][j].length -1]
-        square.style.backgroundImage = "URL(" + imageArr[visiblePiece] + ")";
-        square.innerHTML = visiblePiece;
-        //}
-      }
-    }
-    //stack1
-    for (i = 0; i < stack1In.length; i++){
-      var square = document.getElementById('p1' + i);
-      if (stack1In[i].length == 0){
-          square.style.backgroundImage = "URL(" + imageArr[0] + ")";
-          square.innerHTML = 0;
-      }
-      else {
-        var visiblePiece = stack1In[i][stack1In[i].length -1];
-        square.innerHTML = visiblePiece;
-        square.style.backgroundImage = "URL(" + imageArr[visiblePiece] + ")";
-      }
-    }
-    //stack2
-    for (i = 0; i < stack2In.length; i++){
-      square = document.getElementById('p2' + i)
-      if (stack2In[i].length == 0){
-          square.innerHTML = 0
-          square.style.backgroundImage = "URL(" + imageArr[0] + ")";
-      }
-      else {
-        var visiblePiece = stack2In[i][stack2In[i].length -1];
-        square.innerHTML = visiblePiece;
-        square.style.backgroundImage = "URL(" + imageArr[visiblePiece] + ")";
-      }
-    }  
-  }
-
-  function minimax(boardIn, depthIn, maximizingPlayer){
-    var won, playerValue = checkForWinner(boardIn);
-
-    if (depthIn == 0 || won == true){
-      if (won == true){
-        if (playerValue == 1){
-          return 1000000;
-        }
-        if (playerValue == -1){
-          return -1000000;
+      //stack
+      for (i = 0; i < 3; i++){
+        var stack = players[currentPlayerIn].stack
+        var pieceSize = stack[i][stack[i].length - 1]
+        var stackX = (currentPlayer * -1) - 1
+        if (pieceSize != 0){
+          listOfPieces.push([stackX, i, pieceSize])
         }
       }
-      else { //depth is zero bottom branches reached
-        return scoreBoard(boardIn);
-      }
+      console.log(listOfPieces)
+      return listOfPieces
     }
 
-    if (maximizingPlayer == true){
-      value = Number.NEGATIVE_INFINITY;
-      selectablePieces = selectablePiecesList(boardIn, 0);
-      for (var piece of selectablePieces) {
-        var sx = piece[0];
-        var sy = piece[1];
-        var size = piece[2];
-        for (var targetSquare of validTargetsList(boardIn, size)){
-          var tx = targetSquare[0]
-          var ty = targetSquare[1];
-          newBoard = [...boardIn];
-          makeMove(newBoard, sx, sy);
-          makeMove(newBoard, tx, ty);
-          
-          newScore = minimax(newBoard, depthIn-1, false)[0];
-          if (newScore > value){
-            var selectedX, selectedY = sx, sy;
-            var targetX, targetY = tx, ty;
-            value = newScore;
-          }
-        }
-      }
-      return value, selectedX, selectedY, targetX, targetY;
-    }
 
-    else { //minimizing player
-      value = Number.POSITIVE_INFINITY;
-      selectablePieces = selectablePiecesList(boardIn, 1);
-      for (var piece of selectablePieces){
-        var sx = piece[0];
-        var sy = piece[1];
-        var size = piece[2];
-        for (var targetSquare of validTargetsList(boardIn, size)){
-          var tx = targetSquare[0]
-          var ty = targetSquare[1];
-          newBoard = [...boardIn];
-          makeMove(newBoard, sx, sy);
-          makeMove(newBoard, tx, ty);
-
-          newScore = minimax(newBoard, depthIn-1, true)[0];
-          if (newScore < value){
-            var selectedX, selectedY = sx, sy;
-            var targetX, targetY = tx, ty;
-            value = newScore;
-          }
-        }
-      }
-      return value, selectedX, selectedY, targetX, targetY;
-    } 
-  }
-
-  
-  function makeMove(boardIn, xIn, yIn){
-    //function called when a cell in the table is clicked on
-    console.log('move number: '+ moveNum);
-    console.log('current player: ' + currentPlayer);
-    p.innerHTML = ''
-    //p.innerHTML = 'move number: ' + moveNum + '<br>';
-    //p.innerHTML += 'current player: ' + currentPlayer + '<br>';
-
-    // waitmode is 0 when player needs to select a piece
-    if (waitMode == 0){
-
-      sx = xIn
-      var sy = yIn;
-      if (sx < 0){
-        piece = players[Math.abs(sx)-1].stack[sy].pop();
-      }
-      else{
-        piece = boardIn[sy][sx].pop();
+    function legalTarget(pieceIn, txIn, tyIn, boardIn){
+      //checks if a piece can move to a given square
+      //returns 0 if legal and 1 or 2 if illegal
+      //console.log(txIn, tyIn, pieceIn);
+      //If the piece is smaller than the piece on the target square, return an error
+      if (Math.abs(pieceIn) <= Math.abs(getLargestPiece(boardIn, txIn, tyIn))){
+        //p.innerHTML += "piece too small" + '<br>';
+        return 1
       }
 
-      console.log("selected piece: " + sx + ',' + sy + ',' + piece);
-      //p.innerHTML += 'selection: ' + sx + sy + piece + '<br>'
-      var legalSelect = legalSelection(players[currentPlayer].value, piece);
-
-      if (legalSelect == 1){
-        p.innerHTML += "no piece, pick again"
-        console.log('error 1');
-        boardIn[sy][sx].push(piece);
-        return 
-      }
-      if (legalSelect == 2){
-        p.innerHTML += "illegal selection pick again"
-        console.log('error 2');
-        if (sx < 0){
-          players[Math.abs(sx)-1].stack[sy].push(piece);
-          return 
+      //checks if selected piece is from stack and if there is a piece on target square
+      // if the piece is part of three in a row move is legal, if not return and error
+      if (sx < 0 && Math.abs(getLargestPiece(boardIn, txIn, tyIn)) > 0){
+        if (threeInRow(boardIn, txIn, tyIn, players[currentPlayer].value) == true){
+          return 0
         }
         else{
-          boardIn[sy][sx].push(piece);
-          return 
+          //p.innerHTML += "can't gobble that" + "<br>";
+          return 2
         }
       }
-    }
-
-    //waitMode is 1 when a player has selected a piece and needs to move it
-    if (waitMode == 1){
-
-      var tx = xIn, ty = yIn
-      console.log("target square: " + tx + ',' + ty)
-      //p.innerHTML += 'target: ' + tx + ty + '<br>'
-
-      legalTarg = legalTarget(piece, tx, ty, boardIn);
-      if (legalTarg == 0){
-        boardIn[ty][tx].push(piece);
+      // returns legal
+      else{
+        return 0
       }
-      else {
-        p.innerHTML += 'bad target';
-        console.log('bad target')
-        return 
+    }
+
+
+    function validTargetsList (boardIn, pieceIn){
+      var listOfSquares = [];
+      console.log(pieceIn);
+      //checks each square to see if its legal, if so adds square to listOfSquares
+      for (var i = 0; i < 4; i++){
+        for (var j = 0; j < 4; j++){
+          var x = legalTarget(pieceIn, i, j, boardIn);
+          
+          if (x == 0){
+            listOfSquares.push([i, j]);
+          }
+          /*else {
+            console.log('bad target');
+            console.log(i,j)
+          }*/
+        }
       }
-  
-      checkForWinner(boardIn);
-      currentPlayer = Math.abs(currentPlayer - 1);
-      moveNum ++;
+      //console.log(listOfSquares)
+      return listOfSquares
     }
 
-    console.log(players[0].stack);
-    console.log(boardIn);
-    console.log(players[1].stack);
-    scoreBoard(boardIn);
-    console.log('----------------------------------')
-    //printBoard(board, players[0].stack, players[1].stack);
-    updateTable(boardIn, players[0].stack, players[1].stack);
 
-    // determines wether or not the AI is playing. adjusts waitmode accordingly. 
-    if (players[1].cpu == true){
-      waitMode += 1
+    //algorithm for checking three in a row rule
+    function threeInRow(boardIn, xIn, yIn, currentPlayerValueIn){
+      var triosToCheckList = [];
+      for (i = 0; i < 4; i++){
+        if (i == 0){
+          var xDir = 1, yDir = 0;}
+        if (i == 1){
+          var xDir = 0, yDir = 1;}
+        if (i == 2){
+          var xDir = -1, yDir = 1;}
+        if (i == 3){
+          var xDir = 1, yDir = 1;}
+        
+        for (j = -2; j < 1; j++){
+          var xStart = xIn + j * xDir;
+          var yStart = yIn + j * yDir;
+          var count = 0;
+          //console.log("direction: " + i + ", starting square: " + xStart + yStart)
+          
+          for (k = 0; k < 3; k++){
+            var sqX = xStart + k * xDir;
+            var sqY = yStart + k * yDir;
+            //console.log("square: " + sqX + sqY);
+            if (0 <= sqX && sqX <= 3 && 0 <= sqY && sqY<= 3){
+              var largestPiece = getLargestPiece(boardIn, sqX, sqY);
+              if (largestPiece * currentPlayerValueIn < 0){
+                count += 1;
+              }
+            }
+          }
+          if (count == 3){
+            return true;
+          } 
+        }
+      }
+
     }
-    else{
-      waitMode = Math.abs(waitMode -1)
+
+    function checkForWinner(boardIn){
+      var lineValue = 0;
+      // row
+      for (i = 0; i < 4; i++){
+        for (j = 0; j < 4; j++){
+          largestPiece = boardIn[i][j][boardIn[i][j].length - 1]
+
+          if (largestPiece !== 0){
+            lineValue += (largestPiece)/(Math.abs(largestPiece))
+          }
+        }
+        if (Math.abs(lineValue) == 4){
+          document.getElementById("playAgainButton").style.display = "block";
+        }
+        lineValue = 0;
+      }
+    
+      // column
+      for (i = 0; i < 4; i++){
+        for (j = 0; j < 4; j++){
+          largestPiece = boardIn[j][i][boardIn[j][i].length - 1]
+
+          if (largestPiece !== 0){
+            lineValue += (largestPiece)/(Math.abs(largestPiece))
+          }
+        }
+        if (Math.abs(lineValue) == 4){
+          document.getElementById("playAgainButton").style.display = "block";
+        }
+        lineValue = 0;
+      }
+
+      // diagonal \
+      for (i = 0; i < 4; i++){
+        largestPiece = boardIn[i][i][boardIn[i][i].length - 1];
+
+        if (largestPiece !== 0){
+          lineValue += (largestPiece)/(Math.abs(largestPiece))
+        }
+      }
+      if (Math.abs(lineValue) == 4){
+        document.getElementById("playAgainButton").style.display = "block";
+      }
+      lineValue = 0;
+
+      // diagonal /
+      for (i = 0; i < 4; i++){
+        largestPiece = boardIn[i][3-i][boardIn[i][3-i].length - 1];
+
+        if (largestPiece !== 0){
+          lineValue += (largestPiece)/(Math.abs(largestPiece))
+        }
+      }
+      if (Math.abs(lineValue) == 4){
+        document.getElementById("playAgainButton").style.display = "block";
+      }
+      lineValue = 0;
+      
     }
 
-    //waitMode is 2 when playing against cpu and its the cpu's turn
-    if (waitMode == 2){
-      console.log("AI TURN")
-      prompt("hit ok to minimax");
+    function updateTable(boardIn, stack1In, stack2In){
+      //updates the cells in the table displayed on the website page with images of pieces
+      //board
+      for(i = 0; i < boardIn.length; i++){
+        for(j = 0; j < boardIn[i].length; j++){
+          var square = document.getElementById('board' + i + j);
+          /*if (boardIn[i][j].length == 0){
+            square.style.backgroundImage = "URL(" + imageArr[0] + ")";
+            square.innerHTML = 0;
+          }
+          else {*/
+          var visiblePiece = boardIn[i][j][board[i][j].length -1]
+          square.style.backgroundImage = "URL(" + imageArr[visiblePiece] + ")";
+          square.innerHTML = visiblePiece;
+          //}
+        }
+      }
+      //stack1
+      for (i = 0; i < stack1In.length; i++){
+        var square = document.getElementById('p1' + i);
+        if (stack1In[i].length == 0){
+            square.style.backgroundImage = "URL(" + imageArr[0] + ")";
+            square.innerHTML = 0;
+        }
+        else {
+          var visiblePiece = stack1In[i][stack1In[i].length -1];
+          square.innerHTML = visiblePiece;
+          square.style.backgroundImage = "URL(" + imageArr[visiblePiece] + ")";
+        }
+      }
+      //stack2
+      for (i = 0; i < stack2In.length; i++){
+        square = document.getElementById('p2' + i)
+        if (stack2In[i].length == 0){
+            square.innerHTML = 0
+            square.style.backgroundImage = "URL(" + imageArr[0] + ")";
+        }
+        else {
+          var visiblePiece = stack2In[i][stack2In[i].length -1];
+          square.innerHTML = visiblePiece;
+          square.style.backgroundImage = "URL(" + imageArr[visiblePiece] + ")";
+        }
+      }
+      
+    }
 
-      //randomly chooses piece to move
-      /*var legalSelections = selectablePiecesList(boardIn, currentPlayer);
-      var selection = legalSelections[Math.floor(Math.random() * legalSelections.length)];
-      sx = selection[0];
-      sy = selection[1];
-      piece = selection[2];*/
+    
+    function makeMove(xIn, yIn){
+      //function called when a cell in the table is clicked on
+      console.log('move number: '+ moveNum);
+      console.log('current player: ' + currentPlayer);
+      p.innerHTML = ''
+      //p.innerHTML = 'move number: ' + moveNum + '<br>';
+      //p.innerHTML += 'current player: ' + currentPlayer + '<br>';
 
-      var value =  minimax(boardIn, 1, false)[0]
-      sx, sy, tx, ty = minimax(boardIn, 1, false).slice(1,5);
-      console.log("selected piece: " + sx + sy);
-      if (sx < 0){
-        players[Math.abs(sx)-1].stack[sy].pop();
+      // waitmode is 0 when player needs to select a piece
+      if (waitMode == 0){
+
+        sx = xIn
+        var sy = yIn;
+        if (sx < 0){
+          piece = players[Math.abs(sx)-1].stack[sy].pop();
+        }
+        else{
+          piece = board[sy][sx].pop();
+        }
+
+        console.log(sx, sy, piece);
+        //p.innerHTML += 'selection: ' + sx + sy + piece + '<br>'
+        var legalSelect = legalSelection(players[currentPlayer].value, piece);
+
+        if (legalSelect == 1){
+          p.innerHTML += "no piece, pick again"
+          console.log('error 1');
+          p.innerHTML += "clicked board"
+          board[sy][sx].push(piece);
+          return 
+        }
+        if (legalSelect == 2){
+          p.innerHTML += "illegal selection pick again"
+          console.log('error 2');
+          if (sx < 0){
+            players[Math.abs(sx)-1].stack[sy].push(piece);
+            return 
+          }
+          else{
+            board[sy][sx].push(piece);
+            return 
+          }
+        }
+      }
+
+      //waitMode is 1 when a player has selected a piece and needs to move it
+      if (waitMode == 1){
+
+        var tx = xIn, ty = yIn
+        console.log(tx, ty, piece)
+        //p.innerHTML += 'target: ' + tx + ty + '<br>'
+
+        legalTarg = legalTarget(piece, tx, ty, board);
+        if (legalTarg == 0){
+          board[ty][tx].push(piece);
+        }
+        else {
+          p.innerHTML += 'bad target';
+          console.log('bad target')
+          return 
+        }
+    
+        checkForWinner(board);
+        currentPlayer = Math.abs(currentPlayer - 1);
+        moveNum ++;
+      }
+      console.log(players[0].stack);
+      console.log(board);
+      console.log(players[1].stack);
+      console.log('----------------------------------')
+      //printBoard(board, players[0].stack, players[1].stack);
+      updateTable(board, players[0].stack, players[1].stack);
+
+      // determines wether or not the AI is playing. adjusts waitmode accordingly. 
+      if (players[1].cpu == true){
+        waitMode += 1
       }
       else{
-        boardIn[sy][sx].pop();
+        waitMode = Math.abs(waitMode -1)
       }
 
-      /*randomly chooses target 
-      var legalTargets = validTargetsList(boardIn, piece);
-      console.log(legalTargets);
-      var target = legalTargets[Math.floor(Math.random() * legalTargets.length)];
-      tx = target[0];
-      ty = target[1];*/
-      console.log("target: " + tx, ty)
-      boardIn[ty][tx].push(piece)
+      //waitMode is 2 when playing against cpu and its the cpu's turn
+      if (waitMode == 2){
+        console.log("AI TURN")
+        //randomly chooses piece to move
+        var legalSelections = selectablePiecesList(board, currentPlayer);
+        var selection = legalSelections[Math.floor(Math.random() * legalSelections.length)];
+        sx = selection[0];
+        sy = selection[1];
+        piece = selection[2];
+        if (sx < 0){
+          players[Math.abs(sx)-1].stack[sy].pop();
+        }
+        else{
+          board[sy][sx].pop();
+        }
+        console.log("selected piece: " + sx + sy + piece)
 
-      checkForWinner(boardIn);
-      currentPlayer = Math.abs(currentPlayer - 1);
-      moveNum ++;
-      waitMode = 0;
+        //randomly chooses target 
+        var legalTargets = validTargetsList(board, piece);
+        console.log(legalTargets);
+        var target = legalTargets[Math.floor(Math.random() * legalTargets.length)];
+        tx = target[0];
+        ty = target[1];
+        console.log("target: " + tx, ty)
+        
+        board[ty][tx].push(piece)
+        
 
-     
-      //console.log(players[0].stack);
-      //console.log(boardIn);
-      //console.log(players[1].stack);
-      //scoreBoard(boardIn);
-      //console.log('----------------------------------')
-      //printBoard(board, players[0].stack, players[1].stack);
-      updateTable(boardIn, players[0].stack, players[1].stack);
+        checkForWinner(board);
+        currentPlayer = Math.abs(currentPlayer - 1);
+        moveNum ++;
+        waitMode = 0;
+
+        console.log(players[0].stack);
+        console.log(board);
+        console.log(players[1].stack);
+        console.log('----------------------------------')
+        //printBoard(board, players[0].stack, players[1].stack);
+        updateTable(board, players[0].stack, players[1].stack);
+      }
     }
-  }
 
   </script>
 </body>
