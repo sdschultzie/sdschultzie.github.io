@@ -471,8 +471,14 @@
         if (legalSelect == 1){
           p.innerHTML += "no piece, pick again"
           console.log('error 1');
-          board[sy][sx].push(piece);
-          return 
+          if (sx < 0){
+            players[Math.ads(sx)-1.stack[sy].push(piece)
+            return
+          }
+          else{
+            board[sy][sx].push(piece);
+            return
+          }
         }
         if (legalSelect == 2){
           p.innerHTML += "illegal selection pick again"
