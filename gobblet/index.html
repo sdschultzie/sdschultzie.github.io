@@ -27,7 +27,7 @@
 <h3>Goal</h3>
 <p>Align four pieces in a row, horizontally, vertically, or diagonally</p>
 <h3>Set-Up</h3>
-<p>Each player has 3 stacks of four pieces eof varying sizes. Only the largest piece is visible however, but when this piece is removed it uncovers the next piece of a smaller size underneath it and so on and so forth.</p>
+<p>Each player has 3 stacks of four pieces of varying sizes. Only the largest piece is visible however, but when this piece is picked up, it uncovers the next piece of a smaller size underneath it and so on and so forth.</p>
 <h3>Play</h3>
 <p>Players take turns moving. The blue player goes first. For each turn a player can either</p>
 <ul>
@@ -337,63 +337,85 @@
 
     }
 
+    // Returns 1 or -1 if four of a row in any color in the given line
+    // otherwise returns 0
+    function checkLine(boardIn, row, col, deltaRow, deltaCol)
+    {
+      var lineValue = 0
+      for (i = 0, i < 4, i++){
+        largestPiece = boardIn[row][col][boardIn[row][col].length - 1]
+        if (largestPiece == 0){
+          return 0
+        }
+        else {
+          lineValue += (largestPiece)/Math.abs(largestPiece)
+        }
+      }
+      if (Math.abs(lineValue) == 4){
+        return lineValue/4
+    }
+      
+      
     function checkForWinner(boardIn){
-      var lineValue = 0;
-      // row
-      for (i = 0; i < 4; i++){
-        for (j = 0; j < 4; j++){
-          largestPiece = boardIn[i][j][boardIn[i][j].length - 1]
-
-          if (largestPiece !== 0){
-            lineValue += (largestPiece)/(Math.abs(largestPiece))
-          }
-        }
-        if (Math.abs(lineValue) == 4){
-          document.getElementById("playAgainButton").style.display = "block";
-        }
-        lineValue = 0;
+      if (checkLine(boardIn,0,0,1,0) != 0){
+        document.getElementById("playAgainButton").style.display = "block";
       }
+//       var lineValue = 0;
+//       // row
+//       for (i = 0; i < 4; i++){
+//         for (j = 0; j < 4; j++){
+//           largestPiece = boardIn[i][j][boardIn[i][j].length - 1]
+
+//           if (largestPiece !== 0){
+//             lineValue += (largestPiece)/(Math.abs(largestPiece))
+//           }
+//         }
+//         if (Math.abs(lineValue) == 4){
+//           document.getElementById("playAgainButton").style.display = "block";
+//         }
+//         lineValue = 0;
+//       }
     
-      // column
-      for (i = 0; i < 4; i++){
-        for (j = 0; j < 4; j++){
-          largestPiece = boardIn[j][i][boardIn[j][i].length - 1]
+//       // column
+//       for (i = 0; i < 4; i++){
+//         for (j = 0; j < 4; j++){
+//           largestPiece = boardIn[j][i][boardIn[j][i].length - 1]
 
-          if (largestPiece !== 0){
-            lineValue += (largestPiece)/(Math.abs(largestPiece))
-          }
-        }
-        if (Math.abs(lineValue) == 4){
-          document.getElementById("playAgainButton").style.display = "block";
-        }
-        lineValue = 0;
-      }
+//           if (largestPiece !== 0){
+//             lineValue += (largestPiece)/(Math.abs(largestPiece))
+//           }
+//         }
+//         if (Math.abs(lineValue) == 4){
+//           document.getElementById("playAgainButton").style.display = "block";
+//         }
+//         lineValue = 0;
+//       }
 
-      // diagonal \
-      for (i = 0; i < 4; i++){
-        largestPiece = boardIn[i][i][boardIn[i][i].length - 1];
+//       // diagonal \
+//       for (i = 0; i < 4; i++){
+//         largestPiece = boardIn[i][i][boardIn[i][i].length - 1];
 
-        if (largestPiece !== 0){
-          lineValue += (largestPiece)/(Math.abs(largestPiece))
-        }
-      }
-      if (Math.abs(lineValue) == 4){
-        document.getElementById("playAgainButton").style.display = "block";
-      }
-      lineValue = 0;
+//         if (largestPiece !== 0){
+//           lineValue += (largestPiece)/(Math.abs(largestPiece))
+//         }
+//       }
+//       if (Math.abs(lineValue) == 4){
+//         document.getElementById("playAgainButton").style.display = "block";
+//       }
+//       lineValue = 0;
 
-      // diagonal /
-      for (i = 0; i < 4; i++){
-        largestPiece = boardIn[i][3-i][boardIn[i][3-i].length - 1];
+//       // diagonal /
+//       for (i = 0; i < 4; i++){
+//         largestPiece = boardIn[i][3-i][boardIn[i][3-i].length - 1];
 
-        if (largestPiece !== 0){
-          lineValue += (largestPiece)/(Math.abs(largestPiece))
-        }
-      }
-      if (Math.abs(lineValue) == 4){
-        document.getElementById("playAgainButton").style.display = "block";
-      }
-      lineValue = 0;
+//         if (largestPiece !== 0){
+//           lineValue += (largestPiece)/(Math.abs(largestPiece))
+//         }
+//       }
+//       if (Math.abs(lineValue) == 4){
+//         document.getElementById("playAgainButton").style.display = "block";
+//       }
+//       lineValue = 0;
       
     }
 
