@@ -1,2 +1,2 @@
 # sdschultzie.github.io
-my github web page
+My personal portfolio

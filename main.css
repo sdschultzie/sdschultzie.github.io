@@ -1,11 +1,11 @@
 :root {
-    --text-color: #FBFBFE;
-    --bg-color: #070E1F;
-    --primary-color: #1D1CDB;
-    --secondary-color: #2e2e41;
-    --accent-color: #07E3F2;
-
-    --accent-color-darkend: #07e2f2c9;
+    --text-color: #E5EAFF;
+    --bg-color: #020511;
+    --primary-color-hsl: 228, 94%, 45%;
+    --primary-color: hsl(var(--primary-color-hsl));
+    --accent-color-hsl: 228, 88%, 82%;
+    --accent-color: hsl(var(--accent-color-hsl));
+    --accent-color-darkend: hsl(228, 88%, 72%);
 }
 
 /* Typing animations */
@@ -37,11 +37,12 @@ body {
 }
 
 main {
-    margin-top: 1em;
-    margin-bottom: 1em;
+    margin-top: 1.5em;
+    margin-bottom: 1.5em;
 }
 
 footer {
+    background-color: hsla(var(--primary-color-hsl), 0.2);
     border-top: 0.1em solid var(--primary-color);
     padding-top: 1em;
     padding-bottom: 1em;
@@ -66,8 +67,8 @@ a:hover {
 
 nav {
     overflow: hidden;
-    background-color: var(--primary-color);
-    /* border-bottom: 0.1em solid var(--primary-color); */
+    background-color: hsla(var(--primary-color-hsl), 0.2);
+    border-bottom: 0.1em solid var(--primary-color);
 }
 
 
@@ -81,13 +82,13 @@ nav a {
 }
 
 nav a:hover {
-    color: var(--secondary-color);
+    color: var(--primary-color);
     background-color: var(--text-color);
 }
 
 nav a.active {
     color: var(--text-color);
-    background-color: var(--secondary-color);
+    background-color: var(--primary-color);
 
 }
 
@@ -127,9 +128,9 @@ ul.tag-container {
 ul li.tag {
     font-size: 0.75em;
     color: var(--text-color);
-    background-color: var(--secondary-color);
-    padding: 0.3em 0.6em;
-    border: 0.05em solid var(--accent-color);
+    background-color: hsla(var(--primary-color-hsl), 0.5);
+    padding: 0.5em 1em;
+    /* border: 0.15em solid var(--accent-color); */
     border-radius: 2em;
 }
 
@@ -137,8 +138,8 @@ ul li.tag {
     max-width: 100%;
     aspect-ratio: 1/1;
     border-radius: 100%;
-    border: 0.1em solid var(--text-color);
-    /* box-shadow: 0px 0px 5px 5px var(--primary-color); */
+    border: 0.1em solid var(--accent-color);
+    box-shadow: 0px 0px 5em 0px var(--primary-color);
 }
 
 #intro-text-container {
