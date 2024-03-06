@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+
+<!--
+WRITTEN BY: Chris Schultz
+EMAIL: caschul1@uci.edu
+-->
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <meta name="author" content="Chris Schultz">
+    <meta name="description" content="My Software Portfolio">
+
+    <!--Google Fonts-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter&family=Raleway&family=Rubik&family=Source+Code+Pro&display=swap"
+        rel="stylesheet">
+    <!--Fontawesome-->
+    <script src="https://kit.fontawesome.com/dbc82ea55a.js" crossorigin="anonymous"></script>
+    <!--Bootstrap-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+
+    <!--Custom CSS and navbar JS-->
+    <link rel="stylesheet" href="main.css">
+    <script src="nav.js"></script>
+    <title>Projects - Chris Schultz</title>
+</head>
+
+<body>
+    <nav id="topnav">
+        <a href="index.html" class="active">Home</a>
+        <a href="projects.html">Projects</a>
+        <a href="experience.html">Experience</a>
+        <a title="naviagation menu" href="javascript:void(0);" id="menu-bar" onclick="showNavLinks()">
+            <em aria-hidden="true" class="fa fa-bars"></em>
+        </a>
+    </nav>
+
+    <main class="container-lg">
+        <h1>
+            Some Cool Stuff I Worked On
+        </h1>
+        <section>
+            <h2>Tile Matching Game Engine</h2>
+            <p>
+                Developed a Tile Matching Game Engine (TMGE) in Java with a team of 4 by utilizing SOLID principles and
+                software design patterns to ensure the TMGE was modular, extensible, and maintainable. Led the design of
+                UML Class Diagrams to specify abstractions for core game logic components. Created a GUI to run multiple
+                tile-matching games created with the TMGE such as Tetris and Bejewed
+            </p>
+            <ul class="tag-container row-gap-1 column-gap-2">
+                <li class="tag">Java</li>
+                <li class="tag">Software Design Patterns</li>
+                <li class="tag">UML Class Design</li>
+                <li class="tag">JavaFx UI</li>
+            </ul>
+            <a href="https://github.com/RSakib/Tile-Matching-Game-Environment">View On Github <em
+                    class="fa-brands fa-github"></em></a>
+        </section>
+        <section>
+            <h2>
+                Video Game Development Club Inventory Tracker
+            </h2>
+            <p>
+                Created a inventory tracking system to help officers and members of the Video Game Development Club
+                (VGDC) moniter important game lab items. Utilized the Google Sheets API to create a web interface that
+                officers could use to search for lab items by name, or various tags. Implemented project management
+                concepts to enure the final product was delivered on time </p>
+            <ul class="tag-container row-gap-1 column-gap-2">
+                <li class="tag">Javascript</li>
+                <li class="tag">Google Sheets API</li>
+                <li class="tag">Agile Development Process</li>
+            </ul>
+            <a href="https://github.com/VGDC-UCI/InventoryTracker">View On Github <em
+                    class="fa-brands fa-github"></em></a>
+        </section>
+        <section>
+            <h2>
+                Stock Data Web Scraper + Investment Analysis Tool
+            </h2>
+            <p>Designed a set of modular stock investment tools to speed up the investment analysis process. Created
+                multiple web scrapers using BeautifulSoup and Selenium to scrape stock data from sites such as
+                Tradingview, Zacks, and Finviz. Visualized company statistics by using the Google Sheets API to write
+                customizable data of 500 stocks to a spreadsheet. Created a Discounted Cash Flow Analysis tool to help
+                estimate the intrinsic value of companies</p>
+            <ul class="tag-container row-gap-1 column-gap-2">
+                <li class="tag">Python</li>
+                <li class="tag">Beautiful Soup</li>
+                <li class="tag">Selenium</li>
+                <li class="tag">Google Sheets API</li>
+            </ul>
+        </section>
+        <section>
+            <h2>Othello AI</h2>
+            <p>
+                Wrote a recursive depth-first tree search algorithm to play Othello in C++. Implemented alpha-beta
+                pruning to limit the algorithm’s move time to under 3 seconds. Won 583 out of 586 games in a tournament
+                against other students’ AIs, setting a record for the highest win rate in the history of the course
+                offering
+            </p>
+            <ul class="tag-container row-gap-1 column-gap-2">
+                <li class="tag">C++</li>
+                <li class="tag">Data Structures and Algorithms</li>
+                <li class="tag">Depth First Search (Minimax)</li>
+            </ul>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container-lg">
+            <div class="row">
+                <div class="col-sm">
+                    <strong>Socials</strong>
+                    <div class="d-flex gap-2">
+                        <a title="github" href="https://github.com/sdschultzie" target="_blank">
+                            <em aria-hidden="true" class="fa-brands fa-github"></em>
+                        </a>
+                        <a title="linkedin" href="https://www.linkedin.com/in/chris-schultz-520245237/" target="_blank">
+                            <em aria-hidden="true" class="fa-brands fa-linkedin"></em>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-sm">
+                    <strong>Contact</strong>
+                    <div>Email: sdschultzie@gmail.com</div>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>
